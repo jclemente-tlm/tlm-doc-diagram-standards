@@ -72,7 +72,7 @@
 | **Repository** | Rectángulo redondeado | database    | Repository - acceso a datos              |
 | **Adapter**    | Rectángulo redondeado | plug        | Adapter - integración con externos       |
 | **Client**     | Rectángulo redondeado | arrow-right | Client - consume APIs de otros servicios |
-| **Publisher**  | Rectángulo redondeado | paper-plane | Publisher - publica eventos              |
+| **Publisher**  | Rectángulo redondeado | send        | Publisher - publica eventos              |
 | **Consumer**   | Rectángulo redondeado | inbox       | Consumer - consume eventos/mensajes      |
 | **Mapper**     | Rectángulo redondeado | shuffle     | Mapper - transformación de datos         |
 | **Validator**  | Rectángulo redondeado | check       | Validator - validación de datos          |
