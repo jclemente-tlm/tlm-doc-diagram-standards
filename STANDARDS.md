@@ -483,16 +483,17 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 ### Para TODO sistema nuevo
 
-1. **C1 - Context Diagram** ✅ Obligatorio
-2. **C2 - Container Diagram** ✅ Obligatorio
-3. **Deployment Diagram** ✅ Obligatorio (ver Sección 13)
+| Diagrama | Estado | Ver |
+|----------|--------|-----|
+| **C1 - Context Diagram** | ✅ Obligatorio | Sección 15 |
+| **C2 - Container Diagram** | ✅ Obligatorio | Sección 15 |
+| **Deployment Diagram** | ✅ Obligatorio | Sección 13 |
 
-### Condicionales
+### Condicionales (ver Sección 15)
 
-- **C3 - Component Diagram**: Solo para servicios complejos
-- **Integration Diagram**: Si hay integraciones complejas con múltiples sistemas
+- **C3 - Component Diagram**: Solo para servicios complejos (ver Sección 4)
 - **Sequence Diagram**: Para flujos críticos (auth, payments, checkout)
-- **Data Flow Diagram**: Para arquitecturas data-intensive (CDC, ETL, pipelines)
+- **Integration Diagram**: Si hay integraciones complejas
 
 ---
 
@@ -619,66 +620,19 @@ Pod → Kafka: TCP:9092
 
 ## 📦 14. COMPONENT LIBRARY
 
-**Catálogo oficial de componentes** para librería Draw.io y diagramas corporativos.
+**Catálogo oficial de componentes** → Ver Sección 2 (COMPONENTES ESTÁNDAR) para tabla completa con shapes, iconos y colores.
 
-### Actores
+Esta sección enumera los **30 componentes oficiales** por categoría para referencia rápida:
 
-| Componente          | Tipo                | Ejemplo tecnología | Uso                          |
-| ------------------- | ------------------- | ------------------ | ---------------------------- |
-| **Person**          | `[Person]`          | N/A                | Usuarios internos, empleados |
-| **External Person** | `[External Person]` | N/A                | Usuarios externos, clientes  |
-
-### Sistemas
-
-| Componente          | Tipo                | Ejemplo tecnología | Uso                            |
-| ------------------- | ------------------- | ------------------ | ------------------------------ |
-| **System**          | `[System]`          | N/A                | Sistemas internos              |
-| **External System** | `[External System]` | N/A                | Sistemas externos, third-party |
-
-### App (Aplicaciones y Servicios)
-
-| Componente          | Tipo                   | Ejemplo tecnología | Uso                                  |
-| ------------------- | ---------------------- | ------------------ | ------------------------------------ |
-| **Application**     | `[App: tecnología]`    | Tecnología         | Aplicación genérica (fallback)       |
-| **Web Application** | `[App: tecnología]`    | Angular 17         | Aplicación web                       |
-| **Mobile App**      | `[App: tecnología]`    | Flutter            | Aplicación móvil                     |
-| **API**             | `[App: tecnología]`    | .NET 8 REST API    | API REST/gRPC                        |
-| **Microservice**    | `[App: tecnología]`    | .NET 8             | Microservicio                        |
-| **Worker**          | `[App: tecnología]`    | .NET Worker        | Background worker                    |
-| **Batch**           | `[App: tecnología]`    | Airflow            | Proceso batch/programado             |
-| **CDC Processor**   | `[App: tecnología]`    | Debezium           | Procesador CDC (Change Data Capture) |
-| **API Gateway**     | `[App: tecnología]`    | Kong Gateway       | Gateway/Proxy de entrada             |
-
-### Store (Almacenamiento y Mensajería)
-
-| Componente              | Tipo                  | Ejemplo tecnología | Uso                                                       |
-| ----------------------- | --------------------- | ------------------ | --------------------------------------------------------- |
-| **Store**               | `[Store: tecnología]` | Tecnología         | Almacenamiento genérico (fallback)                        |
-| **Relational Database** | `[Store: tecnología]` | PostgreSQL         | Base de datos relacional (PostgreSQL, Oracle, SQL Server) |
-| **NoSQL Database**      | `[Store: tecnología]` | DynamoDB           | Base de datos NoSQL (DynamoDB)                            |
-| **Cache**               | `[Store: tecnología]` | Redis              | Cache (Redis)                                             |
-| **Event Bus**           | `[Store: tecnología]` | Kafka              | Bus de eventos (Kafka)                                    |
-| **Queue**               | `[Store: tecnología]` | SQS                | Cola de mensajes                                          |
-| **Object Storage**      | `[Store: tecnología]` | Amazon S3          | Almacenamiento (S3, File Server)                          |
-
-### Componentes C3 (Componentes Internos)
-
-| Componente     | Tipo                      | Uso                                      |
-| -------------- | ------------------------- | ---------------------------------------- |
-| **Component**  | `[Component]`             | Componente genérico                      |
-| **Controller** | `[Component: Controller]` | Controller (MVC) - maneja requests       |
-| **Service**    | `[Component: Service]`    | Service - lógica de negocio              |
-| **Repository** | `[Component: Repository]` | Repository - acceso a datos              |
-| **Adapter**    | `[Component: Adapter]`    | Adapter - integración con externos       |
-| **Client**     | `[Component: Client]`     | Client - consume APIs de otros servicios |
-| **Publisher**  | `[Component: Publisher]`  | Publisher - publica eventos              |
-| **Consumer**   | `[Component: Consumer]`   | Consumer - consume eventos/mensajes      |
-| **Mapper**     | `[Component: Mapper]`     | Mapper - transformación de datos         |
-| **Validator**  | `[Component: Validator]`  | Validator - validación de datos          |
+| Categoría | Componentes |
+| --------- | ----------- |
+| **Actores** | Person, External Person |
+| **Sistemas** | System, External System, Boundary |
+| **App** | Application, Web Application, Mobile App, API, Microservice, Worker, Batch, CDC Processor, API Gateway |
+| **Store** | Store, Relational Database, NoSQL Database, Cache, Event Bus, Queue, Object Storage |
+| **C3** | Component, Controller, Service, Repository, Adapter, Client, Publisher, Consumer, Mapper, Validator |
 
 **Notas**:
-
-- Esta tabla define los **30 componentes oficiales** de la librería corporativa
 - No crear componentes personalizados sin aprobación del Architecture Team
 - Para casos no cubiertos, usar el componente genérico más cercano y documentar en ADR
 
@@ -718,10 +672,8 @@ Pod → Kafka: TCP:9092
 
 ## 📚 16. DOCUMENTACIÓN DE REFERENCIA
 
-- [Estructura de componentes](./reference/component-structure.md)
-- [Validation Criteria](./reference/validation-criteria.md)
-- [Best Practices](./reference/c4-guidelines/best-practices.md)
-- [Guías C4](./reference/c4-guidelines/)
+- [Validation Criteria](./reference/validation-criteria.md) - Checklists para PR y auditorías
+- [Best Practices](./reference/c4-best-practices.md) - Principios y anti-patrones
 
 ---
 

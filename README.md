@@ -76,10 +76,8 @@ Todo lo esencial en un solo lugar (~10 minutos de lectura):
 
 La documentación detallada está en [\`/reference/\`](./reference/):
 
-- [Estructura de componentes](./reference/component-structure.md) - Plantillas y ejemplos de 30 componentes
-- [Validation Criteria](./reference/validation-criteria.md) - Criterios detallados por nivel C4
-- [Introducción a C4](./reference/c4-guidelines/c4-overview.md) - Qué es C4 y por qué usarlo
-- [Best Practices](./reference/c4-guidelines/best-practices.md) - Mejores prácticas y antipatrones
+- [Validation Criteria](./reference/validation-criteria.md) - Checklists para PR y auditorías
+- [Best Practices](./reference/c4-best-practices.md) - Principios y anti-patrones
 
 **⚠️ Nota**: La mayoría de los equipos NO necesita leer la documentación de referencia. [STANDARDS.md](./STANDARDS.md) cubre el 95% de los casos de uso.
 
@@ -96,11 +94,9 @@ La documentación detallada está en [\`/reference/\`](./reference/):
 │   └── TLM - Librería C4.xml    # 46 elementos pre-configurados
 │
 └── /reference                   # 📚 Documentación detallada (lectura opcional)
-    ├── component-structure.md   # Plantillas de 30 componentes
-    ├── validation-criteria.md   # Criterios de validación detallados
-    └── /c4-guidelines
-        ├── c4-overview.md       # Introducción a C4
-        └── best-practices.md    # Mejores prácticas
+    ├── validation-criteria.md   # Checklists para PR y auditorías
+    └── c4-best-practices.md     # Principios y anti-patrones
+```
 ```
 
 ---
