@@ -97,7 +97,6 @@ La documentación detallada está en [\`/reference/\`](./reference/):
     ├── validation-criteria.md   # Checklists para PR y auditorías
     └── c4-best-practices.md     # Principios y anti-patrones
 ```
-```
 
 ---
 
@@ -194,7 +193,7 @@ Cliente
 Accede a servicios de autogestión.
 ```
 
-Ver estructura completa en [component-structure.md](./reference/component-structure.md)
+Ver estructura completa en [STANDARDS.md - Sección 2](./STANDARDS.md#-2-componentes-estándar)
 
 ---
 

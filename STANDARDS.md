@@ -40,8 +40,6 @@
 | **External System** | Rectángulo redondeado                                           | cloud       | `#DFDFDF` | `[External System]` | Sistemas externos, third-party  |
 | **Boundary**        | Rectángulo redondeado (sin relleno, borde sólido o discontinuo) | layer-group | Ninguno   | N/A                 | Agrupación de módulos/contextos |
 
-**Nota sobre Boundaries**: Existen 3 tipos - **Agrupador de Sistema** (discontinuo, C2, muestra alcance de un sistema con sus containers), **Agrupador de Aplicación** (discontinuo, C3, muestra alcance de un container con sus componentes), y **Agrupador** genérico (sólido, para dominios, módulos y deployment). Ver Sección 6 para detalles.
-
 ### App (morado `#E1D5E7`)
 
 | Componente          | Shape                 | Icono      | Uso                                  |
@@ -283,8 +281,6 @@ Analista de RRHH
 Gestiona información de empleados y procesos de RRHH.
 ```
 
-**Nota**: Ver [estructura completa de componentes](./reference/component-structure.md) para todos los tipos disponibles.
-
 ### Shapes
 
 - **Rectángulo redondeado**: APIs, servicios, workers, apps
@@ -479,21 +475,35 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 ---
 
-## 📋 10. DIAGRAMAS OBLIGATORIOS
+## 📊 10. TIPOS DE DIAGRAMAS PERMITIDOS
 
-### Para TODO sistema nuevo
+| Tipo de Diagrama      | Estado                 | Cuándo Usar                                            | Herramienta              |
+| --------------------- | ---------------------- | ------------------------------------------------------ | ------------------------ |
+| **C1 - Context**      | ✅ Obligatorio         | Todo sistema nuevo                                     | Draw.io                  |
+| **C2 - Container**    | ✅ Obligatorio         | Todo sistema nuevo                                     | Draw.io                  |
+| **C3 - Component**    | ⚠️ Condicional         | Servicio crítico, 3+ componentes o 2+ integraciones no triviales (ver Sección 4) | Draw.io                  |
+| **Deployment**        | ✅ Obligatorio         | Todo sistema en producción                             | Draw.io                  |
+| **Sequence**          | ✅ Permitido           | Flujos críticos (auth, payments, checkout)             | PlantUML, Mermaid        |
+| **Integration**       | ✅ Permitido           | Integraciones complejas con múltiples sistemas         | Draw.io                  |
+| **Data Flow**         | ✅ Permitido           | Arquitecturas data-intensive (CDC, ETL, pipelines)     | Draw.io                  |
+| **Network**           | ✅ Permitido           | Diseño de conectividad y seguridad de red              | Draw.io                  |
+| **Infrastructure**    | ✅ Permitido           | Recursos cloud específicos (complementa Deployment)    | Draw.io, AWS/Azure Icons |
+| **C4 - Code**         | ❌ No crear            | Usar código fuente como documentación                  | N/A                      |
+| **UML Class**         | ❌ No recomendado      | C4 no es UML - usar C3 Component en su lugar           | N/A                      |
+| **UML Component**     | ❌ No recomendado      | Usar C3 Component con notación C4                      | N/A                      |
+| **Flowchart/Proceso** | ⚠️ Usar con precaución | Solo para procesos de negocio, no arquitectura técnica | Draw.io, Lucidchart      |
 
-| Diagrama | Estado | Ver |
-|----------|--------|-----|
-| **C1 - Context Diagram** | ✅ Obligatorio | Sección 15 |
-| **C2 - Container Diagram** | ✅ Obligatorio | Sección 15 |
-| **Deployment Diagram** | ✅ Obligatorio | Sección 13 |
+### Notas
 
-### Condicionales (ver Sección 15)
+**Obligatorio** = Requerido para todo sistema en ADRs y documentación arquitectónica
 
-- **C3 - Component Diagram**: Solo para servicios complejos (ver Sección 4)
-- **Sequence Diagram**: Para flujos críticos (auth, payments, checkout)
-- **Integration Diagram**: Si hay integraciones complejas
+**Condicional** = Requerido solo cuando aplica la condición especificada
+
+**Permitido** = Útil y recomendado cuando agrega valor, no obligatorio
+
+**No crear** = Explícitamente prohibido por este estándar
+
+**No recomendado** = Permitido técnicamente pero preferir alternativas sugeridas
 
 ---
 
@@ -618,59 +628,7 @@ Pod → Kafka: TCP:9092
 
 ---
 
-## 📦 14. COMPONENT LIBRARY
-
-**Catálogo oficial de componentes** → Ver Sección 2 (COMPONENTES ESTÁNDAR) para tabla completa con shapes, iconos y colores.
-
-Esta sección enumera los **30 componentes oficiales** por categoría para referencia rápida:
-
-| Categoría | Componentes |
-| --------- | ----------- |
-| **Actores** | Person, External Person |
-| **Sistemas** | System, External System, Boundary |
-| **App** | Application, Web Application, Mobile App, API, Microservice, Worker, Batch, CDC Processor, API Gateway |
-| **Store** | Store, Relational Database, NoSQL Database, Cache, Event Bus, Queue, Object Storage |
-| **C3** | Component, Controller, Service, Repository, Adapter, Client, Publisher, Consumer, Mapper, Validator |
-
-**Notas**:
-- No crear componentes personalizados sin aprobación del Architecture Team
-- Para casos no cubiertos, usar el componente genérico más cercano y documentar en ADR
-
----
-
-## 📊 15. TIPOS DE DIAGRAMAS PERMITIDOS
-
-| Tipo de Diagrama      | Estado                 | Cuándo Usar                                            | Herramienta              |
-| --------------------- | ---------------------- | ------------------------------------------------------ | ------------------------ |
-| **C1 - Context**      | ✅ Obligatorio         | Todo sistema nuevo                                     | Draw.io                  |
-| **C2 - Container**    | ✅ Obligatorio         | Todo sistema nuevo                                     | Draw.io                  |
-| **C3 - Component**    | ⚠️ Condicional         | Servicio crítico, 3+ componentes o 2+ integraciones no triviales (ver Sección 4) | Draw.io                  |
-| **Deployment**        | ✅ Obligatorio         | Todo sistema en producción                             | Draw.io                  |
-| **Sequence**          | ✅ Permitido           | Flujos críticos (auth, payments, checkout)             | PlantUML, Mermaid        |
-| **Integration**       | ✅ Permitido           | Integraciones complejas con múltiples sistemas         | Draw.io                  |
-| **Data Flow**         | ✅ Permitido           | Arquitecturas data-intensive (CDC, ETL, pipelines)     | Draw.io                  |
-| **Network**           | ✅ Permitido           | Diseño de conectividad y seguridad de red              | Draw.io                  |
-| **Infrastructure**    | ✅ Permitido           | Recursos cloud específicos (complementa Deployment)    | Draw.io, AWS/Azure Icons |
-| **C4 - Code**         | ❌ No crear            | Usar código fuente como documentación                  | N/A                      |
-| **UML Class**         | ❌ No recomendado      | C4 no es UML - usar C3 Component en su lugar           | N/A                      |
-| **UML Component**     | ❌ No recomendado      | Usar C3 Component con notación C4                      | N/A                      |
-| **Flowchart/Proceso** | ⚠️ Usar con precaución | Solo para procesos de negocio, no arquitectura técnica | Draw.io, Lucidchart      |
-
-### Notas
-
-**Obligatorio** = Requerido para todo sistema en ADRs y documentación arquitectónica
-
-**Condicional** = Requerido solo cuando aplica la condición especificada
-
-**Permitido** = Útil y recomendado cuando agrega valor, no obligatorio
-
-**No crear** = Explícitamente prohibido por este estándar
-
-**No recomendado** = Permitido técnicamente pero preferir alternativas sugeridas
-
----
-
-## 📚 16. DOCUMENTACIÓN DE REFERENCIA
+## 📚 14. DOCUMENTACIÓN DE REFERENCIA
 
 - [Validation Criteria](./reference/validation-criteria.md) - Checklists para PR y auditorías
 - [Best Practices](./reference/c4-best-practices.md) - Principios y anti-patrones
