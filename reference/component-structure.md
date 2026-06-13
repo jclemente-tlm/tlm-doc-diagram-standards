@@ -232,7 +232,7 @@ Procesa cola de correos electrónicos y realiza envíos masivos.
 
 ```
 Nombre del Proceso
-[App: Batch Process]
+[App: Airflow]
 Descripción de proceso programado y frecuencia.
 ```
 
@@ -240,7 +240,7 @@ Descripción de proceso programado y frecuencia.
 
 ```
 Nightly Report Generator
-[App: Batch Process]
+[App: Airflow]
 Genera reportes consolidados de manera nocturna.
 ```
 
@@ -612,7 +612,7 @@ Valida reglas de negocio y restricciones de datos de usuario.
 | **API**                 | Nombre del API                     | `[App: e.g. .NET 8 REST API]`     | Descripción de responsabilidades y capacidades expuestas.      |
 | **Microservice**        | Nombre del Servicio                | `[App: e.g. .NET 8]`              | Descripción de responsabilidades y capacidades de negocio.     |
 | **Worker**              | Nombre del Worker                  | `[App: e.g. .NET Worker Service]` | Descripción de procesamiento en segundo plano.                 |
-| **Batch**               | Nombre del Proceso                 | `[App: Batch Process]`            | Descripción de proceso programado y frecuencia.                |
+| **Batch**               | Nombre del Proceso                 | `[App: Airflow]`                  | Descripción de proceso programado y frecuencia.                |
 | **CDC Processor**       | Nombre del Procesador CDC          | `[App: e.g. Debezium]`            | Descripción de captura de cambios y flujo de datos.            |
 | **API Gateway**         | Nombre del Gateway                 | `[App: e.g. Kong Gateway]`        | Descripción de routing, seguridad y gestión de APIs.           |
 | **Store**               | Nombre del Almacenamiento          | `[Store: e.g. Tecnología]`        | Descripción del almacenamiento.                                |

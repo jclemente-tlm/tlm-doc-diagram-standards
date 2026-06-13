@@ -386,14 +386,6 @@ Indican comunicación:
 - [ ] Los nombres son descriptivos
 - [ ] Sigue convenciones de nomenclatura
 
-## Ejemplos de Uso
-
-Ver la carpeta `/examples` para:
-
-- `example-c1-context.drawio`
-- `example-c2-container.drawio`
-- `example-c3-component.drawio`
-
 ## Integración con SDLC
 
 ### En el Código
@@ -419,20 +411,8 @@ Pull Request checklist:
 ## Próximos Pasos
 
 1. Leer las guías detalladas de cada nivel:
-   - [Level Guidelines](./level-guidelines.md)
    - [Best Practices](./best-practices.md)
-
-2. Revisar ejemplos en `/examples`
-
-3. Usar templates en `/templates`
-
-4. Consultar convenciones:
-   - [Visual Conventions](../conventions/visual-conventions.md)
-   - [Naming Conventions](../conventions/naming-conventions.md)
 
 ## Referencias
 
-- Sitio oficial C4 Model: <https://c4model.com>m>m>m>m>m>m>m>
-- Convenciones visuales: `/conventions/visual-conventions.md`
-- Tipos de diagramas: `/conventions/diagram-types.md`
-- Playbook: `/PLAYBOOK.md`
+- Sitio oficial C4 Model: <https://c4model.com>

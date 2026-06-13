@@ -17,7 +17,7 @@ Este documento define los criterios específicos que los diagramas deben cumplir
 - [ ] **Actores identificados**: Todos los usuarios principales (internos y externos)
 - [ ] **Sistemas externos**: Todos los sistemas que interactúan están representados
 - [ ] **Relaciones etiquetadas**: Todas las flechas tienen etiquetas descriptivas
-- [ ] **Colores estándar**: Usuarios internos (verde), externos (gris), sistemas externos (azul)
+- [ ] **Colores estándar**: Usuarios internos (verde), externos (gris), sistemas externos (gris)
 - [ ] **Sin detalles internos**: NO muestra bases de datos, microservicios, o componentes
 
 #### ✅ Criterios de Calidad
@@ -44,7 +44,7 @@ Este documento define los criterios específicos que los diagramas deben cumplir
 - [ ] **Título claro**: Formato "[Nombre del Sistema] - Container Diagram"
 - [ ] **Todos los containers**: APIs, servicios, workers, frontends representados
 - [ ] **Todos los stores**: DBs, message buses, queues, object storage representados
-- [ ] **Separación visual clara**: Apps (morado), Stores (rojo), Externos (azul)
+- [ ] **Separación visual clara**: Apps (morado), Stores (coral), Externos (gris)
 - [ ] **Shapes correctos**: Cilindros para DBs/buses, rectángulos para apps, folders para storage
 - [ ] **Protocolos etiquetados**: Todas las conexiones muestran protocolo (HTTPS, Kafka, SQL, etc.)
 - [ ] **Sincronía indicada**: Líneas sólidas (sync), dashed (async), dotted (batch)
@@ -196,23 +196,22 @@ Status: Approved
 
 #### ✅ Validación de Colores
 
-- [ ] **External System**: `#DAE8FC` (azul claro)
-- [ ] **Container-App**: `#E1D5E7` (morado claro)
-- [ ] **Container-Store**: `#F8CECC` (rojo claro)
-- [ ] **Component**: `#FFF2CC` (amarillo claro)
-- [ ] **Internal User**: `#D5E8D4` (verde claro)
-- [ ] **External User**: `#EEEEEE` (gris)
+- [ ] **System (interno)**: `#B2CEFF` (azul claro)
+- [ ] **App**: `#E1D5E7` (morado claro)
+- [ ] **Store**: `#F8CECC` (coral claro)
+- [ ] **Component (C3)**: `#FFF2CC` (amarillo claro)
+- [ ] **Person (interno)**: `#D5E8D4` (verde claro)
+- [ ] **External Person/System**: `#DFDFDF` (gris)
 - [ ] **Sin colores personalizados** no documentados
 
 #### ✅ Validación de Shapes
 
-- [ ] **Rectángulo**: Para apps, APIs, servicios
-- [ ] **Cilindro vertical**: Para bases de datos
-- [ ] **Cilindro horizontal**: Para message buses
+- [ ] **Rectángulo redondeado**: Para apps, APIs, servicios, Web Application, Mobile App
+- [ ] **Cilindro vertical**: Para bases de datos, cache
+- [ ] **Cilindro horizontal**: Para message buses, colas, event bus
 - [ ] **Folder**: Para object storage
-- [ ] **Shape web**: Para frontends
-- [ ] **Hexágono**: Para sistemas externos
-- [ ] **Persona**: Para usuarios/actores
+- [ ] **Hexágono**: Para API Gateway, Reverse Proxy
+- [ ] **Persona (Actor)**: Para usuarios/actores
 
 #### ✅ Validación de Flechas
 
@@ -518,8 +517,7 @@ Resultado: FAILED (2 errors, 0 warnings)
 
 ## Referencias
 
-- [PLAYBOOK.md](./PLAYBOOK.md): Guía maestra
-- [Visual Conventions](./conventions/visual-conventions.md): Estándares visuales
-- [Naming Conventions](./conventions/naming-conventions.md): Estándares de nomenclatura
-- [C4 Guidelines](./c4-guidelines/): Guías de modelo C4
-- [Definition of Done](./DEFINITION-OF-DONE.md): DoD de arquitectura
+- [STANDARDS.md](../STANDARDS.md): Documento principal de estándares
+- [Component Structure](./component-structure.md): Plantillas de 30 componentes
+- [C4 Overview](./c4-guidelines/c4-overview.md): Introducción al modelo C4
+- [Best Practices](./c4-guidelines/best-practices.md): Mejores prácticas

@@ -48,35 +48,16 @@ Todo lo esencial en un solo lugar (~10 minutos de lectura):
 3. Seleccionar `TLM - Librería C4.xml`
 4. Arrastrar y soltar componentes
 
-### 2. Templates
-
-📋 **[/templates/](./templates/)**
-
-Templates listos para usar:
-
-- **[template-c1-context.drawio](./templates/template-c1-context.drawio)** - Context Diagram
-- **[template-c2-container.drawio](./templates/template-c2-container.drawio)** - Container Diagram
-- **[template-c3-component.drawio](./templates/template-c3-component.drawio)** - Component Diagram
-
-**Uso:**
-
-1. Abrir template en Draw.io
-2. Reemplazar elementos placeholder
-3. Actualizar metadata (versión, fecha, owner)
-4. Guardar en tu repositorio
-
----
-
 ## ⚡ Quick Start
 
 ### Primera vez creando un diagrama (30-45 min)
 
 1. **Lee** [STANDARDS.md](./STANDARDS.md) (10 min)
 2. **Instala** la librería Draw.io (2 min)
-3. **Abre** el template correspondiente (C1/C2/C3)
+3. **Abre** Draw.io y crea un nuevo diagrama
 4. **Arrastra** componentes de la librería
 5. **Etiqueta** todas las flechas
-6. **Valida** con el checklist de 10 puntos
+6. **Valida** con el checklist de 11 puntos
 7. **Guarda** en Git
 
 ### Actualizando un diagrama existente (15-30 min)
@@ -96,7 +77,7 @@ Templates listos para usar:
 La documentación detallada está en [\`/reference/\`](./reference/):
 
 - [Estructura de componentes](./reference/component-structure.md) - Plantillas y ejemplos de 30 componentes
-- [Validation Criteria](./reference/VALIDATION-CRITERIA.md) - Criterios detallados por nivel C4
+- [Validation Criteria](./reference/validation-criteria.md) - Criterios detallados por nivel C4
 - [Introducción a C4](./reference/c4-guidelines/c4-overview.md) - Qué es C4 y por qué usarlo
 - [Best Practices](./reference/c4-guidelines/best-practices.md) - Mejores prácticas y antipatrones
 
@@ -109,22 +90,14 @@ La documentación detallada está en [\`/reference/\`](./reference/):
 ```
 /tlm-doc-diagram-standards
 ├── README.md                    # Este archivo - punto de entrada
-├── STANDARDS.md                 # ⭐ EL DOCUMENTO ÚNICO - empieza aquí
+├── STANDARDS.md                 # ⭐ Documento principal de estándares
 │
 ├── /drawio-library              # Librería corporativa Draw.io
 │   └── TLM - Librería C4.xml    # 46 elementos pre-configurados
 │
-├── /templates                   # Templates listos para usar
-│   ├── template-c1-context.drawio   # Template C1
-│   ├── template-c2-container.drawio # Template C2
-│   └── template-c3-component.drawio # Template C3
-│
-├── /examples                    # Ejemplos de referencia
-├── /icons                       # Iconografía estándar
-│
 └── /reference                   # 📚 Documentación detallada (lectura opcional)
     ├── component-structure.md   # Plantillas de 30 componentes
-    ├── VALIDATION-CRITERIA.md   # Criterios de validación detallados
+    ├── validation-criteria.md   # Criterios de validación detallados
     └── /c4-guidelines
         ├── c4-overview.md       # Introducción a C4
         └── best-practices.md    # Mejores prácticas
@@ -134,14 +107,14 @@ La documentación detallada está en [\`/reference/\`](./reference/):
 
 ## 🎨 Paleta Corporativa (Copiar/Pegar)
 
-\`\`\`
-Container-App (APIs, servicios): #E1D5E7
-Container-Store (DBs, queues): #F8CECC
-Component (componentes internos): #FFF2CC
-Internal System: #9FC2FF
-Internal User: #D5E8D4
-External System/User: #EEEEEE
-\`\`\`
+```
+App (APIs, servicios, workers): #E1D5E7
+Store (DBs, queues, cache, storage): #F8CECC
+Component (componentes internos C3): #FFF2CC
+System (sistema interno): #B2CEFF
+Person (usuario interno): #D5E8D4
+External Person/System: #DFDFDF
+```
 
 ---
 
@@ -173,7 +146,7 @@ Antes de commitear:
 
 1. **[STANDARDS.md](./STANDARDS.md)** (10 min) - Lectura obligatoria
 2. **Instalar librería Draw.io** (2 min)
-3. **Crear tu primer diagrama** con templates (30-45 min)
+3. **Crear tu primer diagrama** con la librería (30-45 min)
 4. **Pedir feedback** en \`#architecture\`
 
 **No necesitas leer nada más.** La documentación en \`/reference/\` es solo para casos especiales.
@@ -249,7 +222,7 @@ Para sugerir mejoras a los estándares:
 1. Crear issue/PR con justificación
 2. Discutir en \`#architecture\`
 3. Obtener aprobación del Architecture Team
-4. Actualizar documentación + librería + templates
+4. Actualizar documentación + librería
 
 ---
 

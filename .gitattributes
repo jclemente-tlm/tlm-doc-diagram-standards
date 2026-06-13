@@ -1,0 +1,11 @@
+# Handle files with spaces and special characters
+"drawio-library/TLM - Librería C4.xml" filter= -text
+
+# Draw.io files - track but don't attempt binary diff
+*.drawio binary
+
+# Documentation
+*.md text
+*.md -diff
+
+# No Git LFS needed for this project (library is XML, ~88KB)

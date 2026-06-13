@@ -792,8 +792,4 @@ Producer → Topic → Consumer(s)
 ## Referencias
 
 - [C4 Overview](./c4-overview.md)
-- [Level Guidelines](./level-guidelines.md)
-- [Visual Conventions](../conventions/visual-conventions.md)
-- [Naming Conventions](../conventions/naming-conventions.md)
-- [Validation Criteria](../VALIDATION-CRITERIA.md)
-- [Examples](../examples/)
+- [Validation Criteria](../validation-criteria.md)

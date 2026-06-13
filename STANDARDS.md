@@ -504,7 +504,7 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 1. Instalar desde: <https://draw.io>
 2. Cargar librería: File → Open Library → `TLM - Librería C4.xml`
-3. Usar templates de `/templates/`
+3. Crear nuevo diagrama en Draw.io
 
 **Versionamiento:**
 
@@ -548,7 +548,7 @@ jobs:
 
 ## 🚀 12. PROCESO DE CREACIÓN
 
-1. Abrir template correspondiente de `/templates/`
+1. Crear nuevo diagrama en Draw.io
 2. Usar componentes de librería corporativa
 3. Aplicar paleta de colores (Sección 1)
 4. Etiquetar todos los elementos y flechas
@@ -719,7 +719,7 @@ Pod → Kafka: TCP:9092
 ## 📚 16. DOCUMENTACIÓN DE REFERENCIA
 
 - [Estructura de componentes](./reference/component-structure.md)
-- [Validation Criteria](./reference/VALIDATION-CRITERIA.md)
+- [Validation Criteria](./reference/validation-criteria.md)
 - [Best Practices](./reference/c4-guidelines/best-practices.md)
 - [Guías C4](./reference/c4-guidelines/)
 
@@ -730,7 +730,6 @@ Pod → Kafka: TCP:9092
 - **Slack**: `#architecture`
 - **Email**: <architecture@company.com>
 - **Librería Draw.io**: [Actualizar aquí](./drawio-library/)
-- **Templates**: [Actualizar aquí](./templates/)
 
 ---
 
