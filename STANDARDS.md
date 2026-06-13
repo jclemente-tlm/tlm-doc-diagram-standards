@@ -475,23 +475,23 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 ---
 
-## 📊 10. TIPOS DE DIAGRAMAS PERMITIDOS
+## 📊 10. TIPOS DE DIAGRAMAS
 
-| Tipo de Diagrama      | Estado                 | Cuándo Usar                                                                      | Herramienta              |
-| --------------------- | ---------------------- | -------------------------------------------------------------------------------- | ------------------------ |
-| **C1 - Context**      | ✅ Obligatorio         | Todo sistema nuevo                                                               | Draw.io                  |
-| **C2 - Container**    | ✅ Obligatorio         | Todo sistema nuevo                                                               | Draw.io                  |
-| **C3 - Component**    | ⚠️ Condicional         | Servicio crítico, 3+ componentes o 2+ integraciones no triviales (ver Sección 4) | Draw.io                  |
-| **Deployment**        | ✅ Obligatorio         | Todo sistema en producción                                                       | Draw.io                  |
-| **Sequence**          | ✅ Permitido           | Flujos críticos (auth, payments, checkout)                                       | PlantUML, Mermaid        |
-| **Integration**       | ✅ Permitido           | Integraciones complejas con múltiples sistemas                                   | Draw.io                  |
-| **Data Flow**         | ✅ Permitido           | Arquitecturas data-intensive (CDC, ETL, pipelines)                               | Draw.io                  |
-| **Network**           | ✅ Permitido           | Diseño de conectividad y seguridad de red                                        | Draw.io                  |
-| **Infrastructure**    | ✅ Permitido           | Recursos cloud específicos (complementa Deployment)                              | Draw.io, AWS/Azure Icons |
-| **C4 - Code**         | ❌ No crear            | Usar código fuente como documentación                                            | N/A                      |
-| **UML Class**         | ❌ No recomendado      | C4 no es UML - usar C3 Component en su lugar                                     | N/A                      |
-| **UML Component**     | ❌ No recomendado      | Usar C3 Component con notación C4                                                | N/A                      |
-| **Flowchart/Proceso** | ⚠️ Usar con precaución | Solo para procesos de negocio, no arquitectura técnica                           | Draw.io, Lucidchart      |
+| Tipo de Diagrama      | Estado                   | Cuándo Usar                                                                                              | Herramienta              |
+| --------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------- | ------------------------ |
+| **C1 - Context**      | ✅ Obligatorio           | Todo sistema nuevo. Sistemas existentes sin diagrama C1 deben crearlo.                                   | Draw.io                  |
+| **C2 - Container**    | ✅ Obligatorio           | Todo sistema nuevo. Sistemas existentes sin diagrama C2 deben crearlo.                                   | Draw.io                  |
+| **C3 - Component**    | ⚠️ Condicional           | Servicio crítico, 3+ componentes o 2+ integraciones no triviales (ver Sección 4)                        | Draw.io                  |
+| **Deployment**        | ✅ Obligatorio           | Todo sistema en producción, nuevo o existente.                                                          | Draw.io                  |
+| **Sequence**          | ✅ Recomendado           | Flujos críticos (auth, payments, checkout)                                                               | PlantUML, Mermaid        |
+| **Integration**       | ✅ Recomendado           | Integraciones complejas con múltiples sistemas                                                           | Draw.io                  |
+| **Data Flow**         | ✅ Recomendado           | Arquitecturas data-intensive (CDC, ETL, pipelines)                                                       | Draw.io                  |
+| **Network**           | ✅ Recomendado           | Diseño de conectividad y seguridad de red                                                                | Draw.io                  |
+| **Infrastructure**    | ✅ Recomendado           | Recursos cloud específicos (complementa Deployment)                                                      | Draw.io, AWS/Azure Icons |
+| **C4 - Code**         | ❌ No crear              | Usar código fuente como documentación                                                                    | N/A                      |
+| **UML Class**         | ❌ No recomendado        | C4 no es UML - usar C3 Component en su lugar                                                             | N/A                      |
+| **UML Component**     | ❌ No recomendado        | Usar C3 Component con notación C4                                                                        | N/A                      |
+| **Flowchart/Proceso** | ⚠️ Usar con precaución   | Solo para procesos de negocio, no arquitectura técnica                                                   | Draw.io, Lucidchart      |
 
 ### Notas
 
@@ -499,7 +499,7 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 **Condicional** = Requerido solo cuando aplica la condición especificada
 
-**Permitido** = Útil y recomendado cuando agrega valor, no obligatorio
+**Recomendado** = Útil y recomendado cuando agrega valor, no obligatorio
 
 **No crear** = Explícitamente prohibido por este estándar
 
