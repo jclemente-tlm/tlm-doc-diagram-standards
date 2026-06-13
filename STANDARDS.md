@@ -7,15 +7,19 @@
 
 ## 🎨 1. PALETA CORPORATIVA
 
-| Categoría           | Color          | Código Hex | Uso                                 |
-| ------------------- | -------------- | ---------- | ----------------------------------- |
-| **System**          | Azul           | `#B2CEFF`  | Sistemas internos, boundaries       |
-| **App**             | Morado claro   | `#E1D5E7`  | APIs, servicios, workers, frontends |
-| **Store**           | Coral claro    | `#F8CECC`  | DBs, colas, event bus, storage      |
-| **Component**       | Amarillo claro | `#FFF2CC`  | Componentes internos (C3)           |
-| **Person**          | Verde claro    | `#D5E8D4`  | Usuarios internos, empleados        |
-| **External Person** | Gris           | `#DFDFDF`  | Usuarios externos, clientes         |
-| **External System** | Gris           | `#DFDFDF`  | Sistemas externos, third-party      |
+| Categoría           | Color          | Código Hex | Uso                                                                  |
+| ------------------- | -------------- | ---------- | -------------------------------------------------------------------- |
+| **System**          | Azul           | `#B2CEFF`  | Sistemas internos, boundaries                                        |
+| **App**             | Morado claro   | `#E1D5E7`  | APIs, servicios, workers, frontends                                 |
+| **Store**           | Coral claro    | `#F8CECC`  | DBs, colas, event bus, storage                                       |
+| **Component**       | Amarillo claro | `#FFF2CC`  | Componentes internos (C3)                                           |
+| **Person**          | Verde claro    | `#D5E8D4`  | Usuarios internos, empleados                                         |
+| **External Person** | Gris           | `#DFDFDF`  | Usuarios externos, clientes                                          |
+| **External System** | Gris           | `#DFDFDF`  | Sistemas externos, third-party (genérico, shape variable)            |
+| **External App**    | Gris           | `#DFDFDF`  | Apps/SaaS de terceros (shape: rectángulo redondeado)                |
+| **External Store**  | Gris           | `#DFDFDF`  | Almacenamiento de terceros (shape: cilindro o folder según tipo)    |
+
+**Regla de precedencia (External)**: Cuando un componente es de terceros, el color gris (`#DFDFDF`) **sobrescribe** el color de categoría (morado/coral). El **shape semántico se preserva** para indicar la naturaleza del componente (cilindro para DB, folder para object storage, rectángulo para app/SaaS, cilindro horizontal para message broker).
 
 ---
 
@@ -170,22 +174,35 @@
 
 ### **C3 - Component Diagram**
 
-**Crear cuando:**
+**Crear C3 cuando se cumple AL MENOS UNA de estas condiciones:**
 
-- ✅ Servicio complejo (>3 responsabilidades)
-- ✅ Patrones arquitectónicos específicos
-- ✅ Onboarding de equipo nuevo
+- ✅ **Servicio crítico de negocio** (auth, pagos, checkout, datos personales)
+- ✅ **3 o más componentes con responsabilidades distintas** visibles en la estructura del código (no un CRUD thin)
+- ✅ **2 o más integraciones externas no triviales** (no solo HTTP REST estándar sobre recursos propios)
+
+**Excluir explícitamente (no crear C3):**
+
+- ❌ CRUD simple sobre una sola tabla
+- ❌ Thin wrapper / proxy sobre otro servicio
+- ❌ El C2 ya muestra la responsabilidad del container con claridad
 
 **Incluir:**
 
 - ✅ Componentes de UN SOLO container
-- ✅ Responsabilidades claras
+- ✅ Una responsabilidad principal por componente (un componente = un motivo de cambio)
 - ✅ Relaciones entre componentes
-- ✅ Stores que usa
+- ✅ Stores que lee/escribe (la flecha indica la dirección del dato, no el componente)
+
+**Separar componentes por capa:**
+
+- **Capa de entrada** (Controller, Adapter, Client): recibe requests externos
+- **Capa de negocio** (Service, Validator, Mapper): lógica y transformación
+- **Capa de datos** (Repository): acceso a stores
+- **Capa de integración** (Publisher, Consumer): eventos y colas
 
 **Excluir:**
 
-- ❌ Clases o métodos (C4 no es UML)
+- ❌ Clases o métodos (C4 modela componentes, no unidades de código)
 - ❌ Componentes de múltiples containers
 - ❌ Preferiblemente no más de 12 componentes (si excede, evaluar dividir)
 
@@ -195,7 +212,7 @@
 
 ### **C4 - Code Diagram**
 
-❌ **NO CREAR** diagramas C4. Usar código fuente como documentación.
+❌ **NO CREAR** diagramas de Nivel 4 (Code). Usar código fuente como documentación.
 
 ---
 
@@ -237,6 +254,8 @@ Descripción breve de responsabilidades.
 
 ✅ **Correcto**: `[App: .NET 8]`, `[App: Angular 17]`, `[Store: PostgreSQL]`
 ❌ **Incorrecto**: `[App: API]`, `[App: Service]`, `[Store: Database]`
+
+**Excepción (C3)**: Para componentes C3, el formato es `[Component: tipo]` donde "tipo" indica la responsabilidad (Controller, Service, Repository, etc.). La tecnología se hereda del container padre documentado en C2.
 
 **Ejemplos:**
 
@@ -382,7 +401,7 @@ Gestiona información de empleados y procesos de RRHH.
 6. [ ] **TODAS las flechas etiquetadas** - Protocolo + propósito
 7. [ ] **Nombres descriptivos** - NO "Service 1", "API", "DB"
 8. [ ] **Nivel correcto** - C1 sin internos, C2 sin componentes
-9. [ ] **Límite de elementos** - Preferiblemente C1 ≤10, C2 ≤20, C3 ≤12
+9. [ ] **Límite de elementos** - Cumple los límites por nivel definidos en Sección 8
 10. [ ] **Layout limpio** - Sin cruces innecesarios, flujo claro
 11. [ ] **Actualizado** - Refleja el estado real del sistema
 
@@ -392,8 +411,8 @@ Gestiona información de empleados y procesos de RRHH.
 
 ### Prohibido
 
-1. **Diagramas con más de 30 elementos** - Evaluar dividir en múltiples diagramas para mejorar legibilidad
-2. **PowerPoint o herramientas no autorizadas** - Usar Draw.io
+1. **Diagramas con más de 25 elementos** - Preferible evaluar partición. Excepciones justificadas (deployment enterprise, integration diagram) son aceptables si se documentan en el README del diagrama. Los límites C1 ≤10, C2 ≤20, C3 ≤12 aplican a cada diagrama individual.
+2. **Herramientas no autorizadas** - Usar exclusivamente Draw.io o las herramientas listadas en Sección 11. Diagramas one-off en otras herramientas se degradan rápido (no se versionan, no se reutilizan, no se enlazan con código).
 3. **Mezclar niveles C4** - Un nivel por diagrama
 4. **Diagramas sin metadata** - Incluir owner, fecha, versión
 5. **Diagramas sin etiquetas** - Todos los elementos deben tener nombre descriptivo
@@ -407,6 +426,22 @@ Gestiona información de empleados y procesos de RRHH.
 ✅ **Formato**: `[Dominio] Service` o `[Dominio] API`
 ✅ **Ejemplos**: Identity Service, Notification API, Payment Service
 ❌ **Evitar**: auth-svc, svc-notif, PaymentMS
+
+### Patrones Frontend (BFF, MFE, SSR)
+
+Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo del patrón. Representar como un `[App]` estándar dentro de un **Boundary por dominio**.
+
+✅ **Formato y ejemplos:**
+
+| Patrón          | Formato             | Ejemplo                  | Tipo                     |
+| --------------- | ------------------- | ------------------------ | ------------------------ |
+| **BFF**         | `[Dominio] BFF`     | Checkout BFF             | `[App: Node.js]`         |
+| **Microfrontend** | `[Dominio] MFE`   | Billing MFE              | `[App: React 18]`        |
+| **SSR Web**     | `[Dominio] Web`     | Marketing Web            | `[App: Next.js 14]`      |
+
+❌ **Evitar**: `bff-checkout-svc`, `mfe-billing-frontend`, `webapp-1`
+
+**Nota**: No se añaden nuevos componentes a la librería oficial. BFF/MFE/SSR usan los mismos componentes `App` estándar.
 
 ### Bases de Datos
 
@@ -423,8 +458,17 @@ Gestiona información de empleados y procesos de RRHH.
 ### Eventos Kafka
 
 ✅ **Formato**: `[tipo].[dominio].[entidad].[acción]`
-✅ **Ejemplos**: `cdc.oracle.hr.employee`, `evt.payment.created`, `cmd.notification.send`
+✅ **Ejemplos**: `cdc.hr.employee.changed`, `evt.payment.invoice.created`, `cmd.notification.email.send`
 ❌ **Evitar**: event1, notification, kafka-topic
+
+**Prefijos permitidos:**
+
+| Prefijo | Significado         | Ejemplo                              |
+| ------- | ------------------- | ------------------------------------ |
+| `evt.`  | Evento de dominio   | `evt.payment.invoice.created`        |
+| `cmd.`  | Comando (intención) | `cmd.notification.email.send`        |
+| `cdc.`  | Change Data Capture | `cdc.hr.employee.changed`            |
+| `dlq.`  | Dead Letter Queue   | `dlq.payment.failed`                 |
 
 ### Reglas Generales
 
@@ -473,6 +517,33 @@ Gestiona información de empleados y procesos de RRHH.
 - **Diagrams-as-Code**: Structurizr DSL
 - **Cloud Diagrams**: AWS Architecture Icons, Azure Icons
 
+### Automatización de Export a PNG (Recomendado)
+
+El export manual de `.drawio` → `.png` se desactualiza fácilmente. Se **recomienda** automatizarlo en CI/CD para garantizar que el PNG del README/docs siempre refleje el estado del diagrama.
+
+**Opciones:**
+
+- **GitHub Actions**: [`rlespinasse/drawio-export-action`](https://github.com/rlespinasse/drawio-export-action)
+- **GitLab CI**: contenedor `rlespinasse/drawio-export-action` con `script` block
+- **Script local**: `drawio-batch` ejecutable desde `package.json` o `Makefile`
+
+**Ejemplo mínimo (GitHub Actions):**
+
+```yaml
+name: Export Diagrams
+on: [push]
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rlespinasse/drawio-export-action@v1
+        with:
+          drawio-file-path: 'docs/architecture/**/*.drawio'
+          format: png
+          output-path: 'docs/architecture/png/'
+```
+
 ---
 
 ## 🚀 12. PROCESO DE CREACIÓN
@@ -499,6 +570,15 @@ Gestiona información de empleados y procesos de RRHH.
 | **Load Balancer** | Hexágono              | `#B2CEFF` | Balanceador de carga (ALB, NLB) |
 
 **Nota**: Para Databases, Object Storage y Message Brokers, usar los componentes **Store** definidos en la Sección 2.
+
+**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores/pods propios. Solo cambian a color de infraestructura cuando son recursos cloud gestionados.
+
+**Aplicación:**
+
+- Kong/API Gateway (pod propio) → **morado** (es App)
+- AWS ALB / NLB (gestionado) → **azul** (es infraestructura)
+- Debezium CDC (pod propio) → **morado** (es App)
+- AWS RDS (gestionado) → **coral** (es Store)
 
 ### Reglas de Deployment
 
@@ -537,7 +617,7 @@ Pod → Kafka: TCP:9092
 
 ---
 
-## 📦 15. COMPONENT LIBRARY
+## 📦 14. COMPONENT LIBRARY
 
 **Catálogo oficial de componentes** para librería Draw.io y diagramas corporativos.
 
@@ -565,7 +645,7 @@ Pod → Kafka: TCP:9092
 | **API**             | `[App: tecnología]`    | .NET 8 REST API    | API REST/gRPC                        |
 | **Microservice**    | `[App: tecnología]`    | .NET 8             | Microservicio                        |
 | **Worker**          | `[App: tecnología]`    | .NET Worker        | Background worker                    |
-| **Batch**           | `[App: Batch Process]` | Batch Process      | Proceso batch/programado             |
+| **Batch**           | `[App: tecnología]`    | Airflow            | Proceso batch/programado             |
 | **CDC Processor**   | `[App: tecnología]`    | Debezium           | Procesador CDC (Change Data Capture) |
 | **API Gateway**     | `[App: tecnología]`    | Kong Gateway       | Gateway/Proxy de entrada             |
 
@@ -604,13 +684,13 @@ Pod → Kafka: TCP:9092
 
 ---
 
-## 📊 16. TIPOS DE DIAGRAMAS PERMITIDOS
+## 📊 15. TIPOS DE DIAGRAMAS PERMITIDOS
 
 | Tipo de Diagrama      | Estado                 | Cuándo Usar                                            | Herramienta              |
 | --------------------- | ---------------------- | ------------------------------------------------------ | ------------------------ |
 | **C1 - Context**      | ✅ Obligatorio         | Todo sistema nuevo                                     | Draw.io                  |
 | **C2 - Container**    | ✅ Obligatorio         | Todo sistema nuevo                                     | Draw.io                  |
-| **C3 - Component**    | ⚠️ Condicional         | Servicios complejos (>3 responsabilidades)             | Draw.io                  |
+| **C3 - Component**    | ⚠️ Condicional         | Servicio crítico, 3+ componentes o 2+ integraciones no triviales (ver Sección 4) | Draw.io                  |
 | **Deployment**        | ✅ Obligatorio         | Todo sistema en producción                             | Draw.io                  |
 | **Sequence**          | ✅ Permitido           | Flujos críticos (auth, payments, checkout)             | PlantUML, Mermaid        |
 | **Integration**       | ✅ Permitido           | Integraciones complejas con múltiples sistemas         | Draw.io                  |
@@ -636,7 +716,7 @@ Pod → Kafka: TCP:9092
 
 ---
 
-## 📚 17. DOCUMENTACIÓN DE REFERENCIA
+## 📚 16. DOCUMENTACIÓN DE REFERENCIA
 
 - [Estructura de componentes](./reference/component-structure.md)
 - [Validation Criteria](./reference/VALIDATION-CRITERIA.md)
@@ -654,6 +734,4 @@ Pod → Kafka: TCP:9092
 
 ---
 
-**Versión**: 1.0
-**Última actualización**: 2026-06-04
 **Mantenedores**: Architecture Team
