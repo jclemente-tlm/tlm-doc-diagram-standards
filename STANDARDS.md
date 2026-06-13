@@ -7,17 +7,17 @@
 
 ## 🎨 1. PALETA CORPORATIVA
 
-| Categoría           | Color          | Código Hex | Uso                                                                  |
-| ------------------- | -------------- | ---------- | -------------------------------------------------------------------- |
-| **System**          | Azul           | `#B2CEFF`  | Sistemas internos, boundaries                                        |
-| **App**             | Morado claro   | `#E1D5E7`  | APIs, servicios, workers, frontends                                 |
-| **Store**           | Coral claro    | `#F8CECC`  | DBs, colas, event bus, storage                                       |
-| **Component**       | Amarillo claro | `#FFF2CC`  | Componentes internos (C3)                                           |
-| **Person**          | Verde claro    | `#D5E8D4`  | Usuarios internos, empleados                                         |
-| **External Person** | Gris           | `#DFDFDF`  | Usuarios externos, clientes                                          |
-| **External System** | Gris           | `#DFDFDF`  | Sistemas externos, third-party (genérico, shape variable)            |
-| **External App**    | Gris           | `#DFDFDF`  | Apps/SaaS de terceros (shape: rectángulo redondeado)                |
-| **External Store**  | Gris           | `#DFDFDF`  | Almacenamiento de terceros (shape: cilindro o folder según tipo)    |
+| Categoría           | Color          | Código Hex | Uso                                                              |
+| ------------------- | -------------- | ---------- | ---------------------------------------------------------------- |
+| **System**          | Azul           | `#B2CEFF`  | Sistemas internos, boundaries                                    |
+| **App**             | Morado claro   | `#E1D5E7`  | APIs, servicios, workers, frontends                              |
+| **Store**           | Coral claro    | `#F8CECC`  | DBs, colas, event bus, storage                                   |
+| **Component**       | Amarillo claro | `#FFF2CC`  | Componentes internos (C3)                                        |
+| **Person**          | Verde claro    | `#D5E8D4`  | Usuarios internos, empleados                                     |
+| **External Person** | Gris           | `#DFDFDF`  | Usuarios externos, clientes                                      |
+| **External System** | Gris           | `#DFDFDF`  | Sistemas externos, third-party (genérico, shape variable)        |
+| **External App**    | Gris           | `#DFDFDF`  | Apps/SaaS de terceros (shape: rectángulo redondeado)             |
+| **External Store**  | Gris           | `#DFDFDF`  | Almacenamiento de terceros (shape: cilindro o folder según tipo) |
 
 **Regla de precedencia (External)**: Cuando un componente es de terceros, el color gris (`#DFDFDF`) **sobrescribe** el color de categoría (morado/coral). El **shape semántico se preserva** para indicar la naturaleza del componente (cilindro para DB, folder para object storage, rectángulo para app/SaaS, cilindro horizontal para message broker).
 
@@ -429,11 +429,11 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 ✅ **Formato y ejemplos:**
 
-| Patrón          | Formato             | Ejemplo                  | Tipo                     |
-| --------------- | ------------------- | ------------------------ | ------------------------ |
-| **BFF**         | `[Dominio] BFF`     | Checkout BFF             | `[App: Node.js]`         |
-| **Microfrontend** | `[Dominio] MFE`   | Billing MFE              | `[App: React 18]`        |
-| **SSR Web**     | `[Dominio] Web`     | Marketing Web            | `[App: Next.js 14]`      |
+| Patrón            | Formato         | Ejemplo       | Tipo                |
+| ----------------- | --------------- | ------------- | ------------------- |
+| **BFF**           | `[Dominio] BFF` | Checkout BFF  | `[App: Node.js]`    |
+| **Microfrontend** | `[Dominio] MFE` | Billing MFE   | `[App: React 18]`   |
+| **SSR Web**       | `[Dominio] Web` | Marketing Web | `[App: Next.js 14]` |
 
 ❌ **Evitar**: `bff-checkout-svc`, `mfe-billing-frontend`, `webapp-1`
 
@@ -459,12 +459,12 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 **Prefijos permitidos:**
 
-| Prefijo | Significado         | Ejemplo                              |
-| ------- | ------------------- | ------------------------------------ |
-| `evt.`  | Evento de dominio   | `evt.payment.invoice.created`        |
-| `cmd.`  | Comando (intención) | `cmd.notification.email.send`        |
-| `cdc.`  | Change Data Capture | `cdc.hr.employee.changed`            |
-| `dlq.`  | Dead Letter Queue   | `dlq.payment.failed`                 |
+| Prefijo | Significado         | Ejemplo                       |
+| ------- | ------------------- | ----------------------------- |
+| `evt.`  | Evento de dominio   | `evt.payment.invoice.created` |
+| `cmd.`  | Comando (intención) | `cmd.notification.email.send` |
+| `cdc.`  | Change Data Capture | `cdc.hr.employee.changed`     |
+| `dlq.`  | Dead Letter Queue   | `dlq.payment.failed`          |
 
 ### Reglas Generales
 
@@ -477,21 +477,21 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 ## 📊 10. TIPOS DE DIAGRAMAS PERMITIDOS
 
-| Tipo de Diagrama      | Estado                 | Cuándo Usar                                            | Herramienta              |
-| --------------------- | ---------------------- | ------------------------------------------------------ | ------------------------ |
-| **C1 - Context**      | ✅ Obligatorio         | Todo sistema nuevo                                     | Draw.io                  |
-| **C2 - Container**    | ✅ Obligatorio         | Todo sistema nuevo                                     | Draw.io                  |
+| Tipo de Diagrama      | Estado                 | Cuándo Usar                                                                      | Herramienta              |
+| --------------------- | ---------------------- | -------------------------------------------------------------------------------- | ------------------------ |
+| **C1 - Context**      | ✅ Obligatorio         | Todo sistema nuevo                                                               | Draw.io                  |
+| **C2 - Container**    | ✅ Obligatorio         | Todo sistema nuevo                                                               | Draw.io                  |
 | **C3 - Component**    | ⚠️ Condicional         | Servicio crítico, 3+ componentes o 2+ integraciones no triviales (ver Sección 4) | Draw.io                  |
-| **Deployment**        | ✅ Obligatorio         | Todo sistema en producción                             | Draw.io                  |
-| **Sequence**          | ✅ Permitido           | Flujos críticos (auth, payments, checkout)             | PlantUML, Mermaid        |
-| **Integration**       | ✅ Permitido           | Integraciones complejas con múltiples sistemas         | Draw.io                  |
-| **Data Flow**         | ✅ Permitido           | Arquitecturas data-intensive (CDC, ETL, pipelines)     | Draw.io                  |
-| **Network**           | ✅ Permitido           | Diseño de conectividad y seguridad de red              | Draw.io                  |
-| **Infrastructure**    | ✅ Permitido           | Recursos cloud específicos (complementa Deployment)    | Draw.io, AWS/Azure Icons |
-| **C4 - Code**         | ❌ No crear            | Usar código fuente como documentación                  | N/A                      |
-| **UML Class**         | ❌ No recomendado      | C4 no es UML - usar C3 Component en su lugar           | N/A                      |
-| **UML Component**     | ❌ No recomendado      | Usar C3 Component con notación C4                      | N/A                      |
-| **Flowchart/Proceso** | ⚠️ Usar con precaución | Solo para procesos de negocio, no arquitectura técnica | Draw.io, Lucidchart      |
+| **Deployment**        | ✅ Obligatorio         | Todo sistema en producción                                                       | Draw.io                  |
+| **Sequence**          | ✅ Permitido           | Flujos críticos (auth, payments, checkout)                                       | PlantUML, Mermaid        |
+| **Integration**       | ✅ Permitido           | Integraciones complejas con múltiples sistemas                                   | Draw.io                  |
+| **Data Flow**         | ✅ Permitido           | Arquitecturas data-intensive (CDC, ETL, pipelines)                               | Draw.io                  |
+| **Network**           | ✅ Permitido           | Diseño de conectividad y seguridad de red                                        | Draw.io                  |
+| **Infrastructure**    | ✅ Permitido           | Recursos cloud específicos (complementa Deployment)                              | Draw.io, AWS/Azure Icons |
+| **C4 - Code**         | ❌ No crear            | Usar código fuente como documentación                                            | N/A                      |
+| **UML Class**         | ❌ No recomendado      | C4 no es UML - usar C3 Component en su lugar                                     | N/A                      |
+| **UML Component**     | ❌ No recomendado      | Usar C3 Component con notación C4                                                | N/A                      |
+| **Flowchart/Proceso** | ⚠️ Usar con precaución | Solo para procesos de negocio, no arquitectura técnica                           | Draw.io, Lucidchart      |
 
 ### Notas
 
@@ -535,7 +535,6 @@ El export manual de `.drawio` → `.png` se desactualiza fácilmente. Se **recom
 **Opciones:**
 
 - **GitHub Actions**: [`rlespinasse/drawio-export-action`](https://github.com/rlespinasse/drawio-export-action)
-- **GitLab CI**: contenedor `rlespinasse/drawio-export-action` con `script` block
 - **Script local**: `drawio-batch` ejecutable desde `package.json` o `Makefile`
 
 **Ejemplo mínimo (GitHub Actions):**
@@ -550,9 +549,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: rlespinasse/drawio-export-action@v1
         with:
-          drawio-file-path: 'docs/architecture/**/*.drawio'
+          drawio-file-path: "docs/architecture/**/*.drawio"
           format: png
-          output-path: 'docs/architecture/png/'
+          output-path: "docs/architecture/png/"
 ```
 
 ---
