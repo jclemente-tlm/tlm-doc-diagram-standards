@@ -1,7 +1,7 @@
 # Estándares de Diagramas de Arquitectura
 
 **Última actualización**: 2026-06-21
-**Versión**: 1.0
+**Versión**: 1.1
 
 ---
 
@@ -9,17 +9,15 @@
 
 | Categoría           | Color          | Código Hex | Uso                                                              |
 | ------------------- | -------------- | ---------- | ---------------------------------------------------------------- |
-| **System**          | Azul           | `#B2CEFF`  | Sistemas internos, boundaries                                    |
+| **System**          | Azul           | `#B2CEFF`  | Sistemas internos (boundaries ver §6)                            |
 | **App**             | Morado claro   | `#E1D5E7`  | APIs, servicios, workers, frontends                              |
 | **Store**           | Coral claro    | `#F8CECC`  | DBs, colas, event bus, storage                                   |
 | **Component**       | Amarillo claro | `#FFF2CC`  | Componentes internos (C3)                                        |
 | **Person**          | Verde claro    | `#D5E8D4`  | Usuarios internos, empleados                                     |
 | **External Person** | Gris           | `#DFDFDF`  | Usuarios externos, clientes                                      |
 | **External System** | Gris           | `#DFDFDF`  | Sistemas externos, third-party (genérico, shape variable)        |
-| **External App**    | Gris           | `#DFDFDF`  | Apps/SaaS de terceros (shape: rectángulo redondeado)             |
-| **External Store**  | Gris           | `#DFDFDF`  | Almacenamiento de terceros (shape: cilindro o folder según tipo) |
 
-**Regla de precedencia (External)**: Cuando un componente es de terceros, el color gris (`#DFDFDF`) **sobrescribe** el color de categoría (morado/coral). El **shape semántico se preserva** para indicar la naturaleza del componente (cilindro para DB, folder para object storage, rectángulo para app/SaaS, cilindro horizontal para message broker).
+**Regla de precedencia (External)**: Cuando un componente es de terceros, el color gris (`#DFDFDF`) **sobrescribe** el color de categoría (morado/coral). El **shape semántico se preserva** para indicar la naturaleza del componente (cilindro para DB, folder para object storage, rectángulo para app/SaaS, cilindro horizontal para message broker). Esta regla cubre también los casos de `External App` (rectángulo redondeado gris) y `External Store` (cilindro o folder gris) — no se necesitan filas separadas en §2.
 
 ---
 
@@ -46,29 +44,32 @@
 
 ### App (morado `#E1D5E7`)
 
-| Componente          | Shape                 | Icono      | Uso                                  |
-| ------------------- | --------------------- | ---------- | ------------------------------------ |
-| **Web Application** | Rectángulo redondeado | monitor    | Aplicación web                       |
-| **Mobile App**      | Rectángulo redondeado | smartphone | Aplicación móvil                     |
-| **API**             | Rectángulo redondeado | globe      | API REST/gRPC                        |
-| **Microservice**    | Rectángulo redondeado | box        | Microservicio                        |
-| **Worker**          | Rectángulo redondeado | cog        | Background worker                    |
-| **Batch**           | Rectángulo redondeado | clock      | Proceso batch/programado             |
-| **CDC Processor**   | Rectángulo redondeado | sync       | Procesador CDC (Change Data Capture) |
-| **API Gateway**     | Hexágono              | shield     | Gateway/Proxy de entrada             |
-| **Aplicación**      | Rectángulo redondeado | monitor    | Aplicación genérica (no específica) — c4Technology=`ej. Tecnología` |
+| Componente          | Shape                 | Icono        | Uso                                                                 |
+| ------------------- | --------------------- | ------------ | ------------------------------------------------------------------- |
+| **Web Application** | Rectángulo redondeado | monitor      | Aplicación web                                                      |
+| **Mobile App**      | Rectángulo redondeado | smartphone   | Aplicación móvil                                                    |
+| **API**             | Rectángulo redondeado | code         | API REST/gRPC                                                       |
+| **Microservice**    | Rectángulo redondeado | boxes        | Microservicio                                                       |
+| **Worker**          | Rectángulo redondeado | cog          | Background worker                                                   |
+| **Batch**           | Rectángulo redondeado | play         | Proceso batch/programado                                            |
+| **CDC Processor**   | Rectángulo redondeado | sync         | Procesador CDC (Change Data Capture)                                |
+| **API Gateway**     | Hexágono              | shield-half  | Gateway/Proxy de entrada                                            |
+| **Function**        | Rectángulo redondeado | zap          | Función serverless (AWS Lambda, Azure Functions, GCP Cloud Functions) |
+| **Aplicación**      | Rectángulo redondeado | app-window   | Aplicación genérica (escape hatch para casos no cubiertos) — c4Technology=`ej. Tecnología` |
 
 ### Store (coral `#F8CECC`)
 
-| Componente              | Shape               | Icono        | Uso                                                       | Patrón         |
-| ----------------------- | ------------------- | ------------ | --------------------------------------------------------- | -------------- |
-| **Relational Database** | Cilindro vertical   | database     | Base de datos relacional (PostgreSQL, Oracle, SQL Server) | -              |
-| **NoSQL Database**      | Cilindro vertical   | database     | Base de datos NoSQL (DynamoDB)                            | -              |
-| **Cache**               | Cilindro vertical   | bolt         | Cache (Redis)                                             | -              |
-| **Event Bus**           | Cilindro horizontal | waves        | Bus de eventos (Kafka)                                    | Pub/Sub        |
-| **Queue**               | Cilindro horizontal | list-ordered | Cola de mensajes                                          | Point-to-Point |
-| **Object Storage**      | Folder              | folder       | Almacenamiento (S3, File Server)                          | -              |
-| **Almacenamiento**     | Cilindro vertical   | database     | Almacenamiento genérico (no específico) — c4Technology=`ej. Tecnología` | - |
+| Componente              | Shape               | Icono        | Uso                                                                                  |
+| ----------------------- | ------------------- | ------------ | ------------------------------------------------------------------------------------ |
+| **Relational Database** | Cilindro vertical   | database     | Base de datos relacional (PostgreSQL, Oracle, SQL Server)                            |
+| **NoSQL Database**      | Cilindro vertical   | table-2      | Base de datos NoSQL (DynamoDB)                                                       |
+| **Cache**               | Cilindro vertical   | bolt         | Cache distribuido (Redis)                                                            |
+| **Event Bus**           | Cilindro horizontal | radio-tower  | Bus de eventos pub/sub (Kafka, NATS, Pulsar)                                         |
+| **Queue**               | Cilindro horizontal | list-ordered | Cola de mensajes (Point-to-Point)                                                    |
+| **Object Storage**      | Folder              | folder-open  | Almacenamiento de objetos (S3, File Server)                                          |
+| **Almacenamiento**      | Cilindro vertical   | archive      | Almacenamiento genérico (no específico) — c4Technology=`ej. Tecnología`              |
+
+**Nota sobre patrones**: `Event Bus` implementa semántica pub/sub (varios consumers), `Queue` implementa point-to-point (un solo consumer). El resto de los Stores son neutrales respecto al patrón de acceso.
 
 ### Componentes C3 (amarillo `#FFF2CC`)
 
@@ -79,7 +80,7 @@
 | **Service**    | Rectángulo redondeado | cog         | Service - lógica de negocio              |
 | **Repository** | Rectángulo redondeado | database    | Repository - acceso a datos              |
 | **Adapter**    | Rectángulo redondeado | plug        | Adapter - integración con externos       |
-| **Client**     | Rectángulo redondeado | arrow-right | Client - consume APIs de otros servicios |
+| **Client**     | Rectángulo redondeado | download    | Client - consume APIs de otros servicios |
 | **Publisher**  | Rectángulo redondeado | send        | Publisher - publica eventos              |
 | **Consumer**   | Rectángulo redondeado | inbox       | Consumer - consume eventos/mensajes      |
 | **Mapper**     | Rectángulo redondeado | shuffle     | Mapper - transformación de datos         |
@@ -110,20 +111,20 @@ La **Leyenda** es un meta-elemento opcional que explica la clave de colores y fo
 
 ### Tipos de flechas disponibles
 
-| Tipo                | Línea             | Formato Etiqueta                   | Uso                            |
-| ------------------- | ----------------- | ---------------------------------- | ------------------------------ |
-| **Relación**        | Sólida →          | `<Propósito>`<br>`[<Protocolo>]`   | Genérico con protocolo         |
-| **Relación Simple** | Sólida →          | `<Propósito>`                      | Genérico sin protocolo (C1/C3) |
-| **HTTPS**          | Sólida →          | `<Propósito>`<br>`[HTTPS]`         | Llamadas HTTPS                 |
-| **HTTP**            | Sólida →          | `<Propósito>`<br>`[HTTP]`          | Llamadas HTTP                  |
-| **SOAP**            | Sólida →          | `<Propósito>`<br>`[SOAP]`          | Servicios SOAP/XML             |
-| **gRPC**            | Sólida →          | `<Propósito>`<br>`[gRPC]`          | Llamadas gRPC                  |
-| **Evento**          | Discontinua - - → | `<Nombre evento (formato §9)>`<br>`<evt.payment.invoice.created>`<br>`[Kafka]` | Publicación de eventos         |
-| **Queue**           | Discontinua - - → | `<Nombre mensaje>`<br>`[SQS]`      | Mensajes en cola               |
-| **CDC**             | Discontinua - - → | `Capturar cambios`<br>`[CDC]`      | Change Data Capture            |
-| **Batch**           | Punteada · · · →  | `<Propósito proceso>`<br>`[Batch]` | Procesos batch                 |
-| **File Transfer**   | Sólida →          | `Transferir archivo`<br>`[SFTP]`   | Transferencia de archivos      |
-| **Database Access** | Sólida delgada →  | `<Propósito consulta>`<br>`[SQL]`  | Acceso a BD                    |
+| Tipo                | Línea             | Formato Etiqueta                                              |
+| ------------------- | ----------------- | ------------------------------------------------------------- |
+| **Relación**        | Sólida →          | `<Propósito>`<br>`[<Protocolo>]`                              |
+| **Relación Simple** | Sólida →          | `<Propósito>`                                                 |
+| **HTTPS**           | Sólida →          | `<Propósito>`<br>`[HTTPS]`                                    |
+| **HTTP**            | Sólida →          | `<Propósito>`<br>`[HTTP]`                                     |
+| **SOAP**            | Sólida →          | `<Propósito>`<br>`[SOAP]`                                     |
+| **gRPC**            | Sólida →          | `<Propósito>`<br>`[gRPC]`                                     |
+| **Evento**          | Discontinua - - → | `<Nombre evento (formato §9)>`<br>`<evt.payment.invoice.created>`<br>`[Kafka]` |
+| **Queue**           | Discontinua - - → | `<Nombre mensaje>`<br>`[SQS]`                                 |
+| **CDC**             | Discontinua - - → | `Capturar cambios`<br>`[CDC]`                                 |
+| **Batch**           | Punteada · · · →  | `<Propósito proceso>`<br>`[Batch]`                            |
+| **File Transfer**   | Sólida →          | `Transferir archivo`<br>`[SFTP]`                              |
+| **Database Access** | Sólida delgada →  | `<Propósito consulta>`<br>`[SQL]`                             |
 
 **Obligatorio:**
 
@@ -336,15 +337,15 @@ Gestiona información de empleados y procesos de RRHH.
 
 ### Tamaños Estándar
 
-**Tamaño mínimo recomendado**: 280pt × 140pt
+**Tamaño mínimo recomendado**: 280px × 140px
 
 | Categoría      | Tamaño mínimo     | Notas                                          |
 | -------------- | ----------------- | ---------------------------------------------- |
-| Sistemas       | 280pt × 140pt     | Ajustar según longitud de nombre y descripción |
-| App            | 280pt × 140pt     | Ajustar según longitud de nombre y descripción |
-| Store          | 280pt × 140pt     | Ajustar según longitud de nombre y descripción |
-| Componentes C3 | 280pt × 140pt     | Ajustar según longitud de nombre y descripción |
-| Actores        | 200pt × 140pt     | Suficiente para nombre de rol                  |
+| Sistemas       | 280px × 140px     | Ajustar según longitud de nombre y descripción |
+| App            | 280px × 140px     | Ajustar según longitud de nombre y descripción |
+| Store          | 280px × 140px     | Ajustar según longitud de nombre y descripción |
+| Componentes C3 | 280px × 140px     | Ajustar según longitud de nombre y descripción |
+| Actores        | 200px × 140px     | Suficiente para nombre de rol                  |
 | Boundary       | Ajustar contenido | Debe contener todos los elementos agrupados    |
 
 **Nota**: El tamaño puede ajustarse según el contenido manteniendo consistencia visual. Priorizar legibilidad sobre tamaño fijo.
@@ -417,7 +418,7 @@ Gestiona información de empleados y procesos de RRHH.
 6. [ ] **TODAS las flechas etiquetadas** - Protocolo + propósito
 7. [ ] **Nombres descriptivos** - NO "Service 1", "API", "DB"
 8. [ ] **Nivel correcto** - C1 sin internos, C2 sin componentes
-9. [ ] **Límite de elementos** - Cumple los límites por nivel definidos en Sección 8
+9. [ ] **Límite de elementos** - Cumple los límites por nivel definidos en §8
 10. [ ] **Layout limpio** - Sin cruces innecesarios, flujo claro
 11. [ ] **Actualizado** - Refleja el estado real del sistema
 12. [ ] **Convención de pestañas** - Si el archivo `.drawio` tiene pestañas exportables, sus nombres siguen el patrón `[Nombre del Sistema] - [Tipo]` (ver §15). Tabs `borrador`, `WIP`, etc. deben existir solo como pestañas no exportables.
@@ -454,11 +455,11 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 | ----------------- | --------------- | ------------- | ------------------- |
 | **BFF**           | `[Dominio] BFF` | Checkout BFF  | `[App: Node.js]`    |
 | **Microfrontend** | `[Dominio] MFE` | Billing MFE   | `[App: React 18]`   |
-| **SSR Web**       | `[Dominio] Web` | Marketing Web | `[App: Next.js 14]` |
+| **SSR Web**       | `[Dominio] Web` | Marketing Web | `[App: Next.js 14]` o `[App: Angular 17 SSR]` |
 
 ❌ **Evitar**: `bff-checkout-svc`, `mfe-billing-frontend`, `webapp-1`
 
-**Nota**: El campo tecnología captura el stack real del equipo (Next.js, Angular SSR, Nuxt, Remix). El framework SSR ya implica React/Vue subyacente; no duplicar. No se añaden nuevos componentes a la librería oficial. BFF/MFE/SSR usan los mismos componentes `App` estándar.
+**Nota**: El campo tecnología captura el stack real del equipo (Next.js, Angular SSR, Nuxt, Remix). El framework SSR ya implica React/Vue subyacente; no duplicar. No se añaden nuevos componentes a la librería oficial. BFF/MFE/SSR usan los mismos componentes `App` estándar. El ejemplo `[App: Next.js 14]` es ilustrativo — cualquier framework SSR válido se acepta como `[App: <framework> <versión>]`.
 
 ### Bases de Datos
 
@@ -502,7 +503,7 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 | --------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------- | ------------------------ |
 | **C1 - Context**      | ✅ Obligatorio           | Todo sistema nuevo. Sistemas existentes sin diagrama C1 deben crearlo.                                   | Draw.io                  |
 | **C2 - Container**    | ✅ Obligatorio           | Todo sistema nuevo. Sistemas existentes sin diagrama C2 deben crearlo.                                   | Draw.io                  |
-| **C3 - Component**    | ⚠️ Condicional           | Servicio crítico, 3+ componentes o 2+ integraciones no triviales (ver Sección 4)                        | Draw.io                  |
+| **C3 - Component Diagram** | ⚠️ Condicional     | Servicio crítico, 3+ componentes o 2+ integraciones no triviales (ver §4)                               | Draw.io                  |
 | **Deployment**        | ✅ Obligatorio           | Todo sistema en producción, nuevo o existente.                                                          | Draw.io                  |
 | **Sequence**          | ✅ Recomendado           | Flujos críticos (auth, payments, checkout)                                                               | PlantUML, Mermaid        |
 | **Integration**       | ✅ Recomendado           | Integraciones complejas con múltiples sistemas                                                           | Draw.io                  |
@@ -552,16 +553,17 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 El export manual de `.drawio` → `.png` se desactualiza fácilmente. Se usa un **workflow compartido** para automatizar la exportación de PNGs por cada PR que modifica un archivo `.drawio`.
 
-**Repositorio compartido**: [`tlm-org/diagram-export-workflow`](https://github.com/tlm-org/diagram-export-workflow)
+**Repositorio compartido**: `tlm-org/diagram-export-workflow` (pendiente de crear — el equipo de Arquitectura confirmará el path antes de habilitar la adopción por equipos)
 
 **Adopción**: Cada equipo opta por usar el workflow referenciándolo en su `.github/workflows/`.
 
 **Trigger**:
 
 ```yaml
-on: pull_request
-  paths:
-    - '**.drawio'
+on:
+  pull_request:
+    paths:
+      - '**.drawio'
 ```
 
 **Permisos**: `contents: write`
@@ -601,7 +603,7 @@ on: pull_request
 | ----------------- | --------------------- | --------- | ------------------------------- |
 | **Pod/Container** | Rectángulo redondeado | `#E1D5E7` | Contenedor individual           |
 | **VM/EC2**        | Rectángulo            | `#E8EAF6` | Máquina virtual                 |
-| **Load Balancer** | Hexágono              | `#E1D5E7` | Balanceador de carga (ALB, NLB) — **categoría App** porque es un API Gateway managed |
+| **Load Balancer** | Hexágono | `#E1D5E7` | Balanceador de carga (ALB, NLB). Color: morado App (categoría App — API Gateway managed). |
 
 **Nota**: Para Databases, Object Storage y Message Brokers, usar los componentes **Store** definidos en la Sección 2.
 
@@ -655,6 +657,8 @@ Pod → Kafka: TCP:9092
 
 - [Validation Criteria](./reference/validation-criteria.md) - Checklists para PR y auditorías
 - [Best Practices](./reference/c4-best-practices.md) - Principios y anti-patrones
+- [Cheat Sheet](./reference/cheat-sheet.md) - Referencia rápida de una página
+- [Contribution Guide](./reference/contribution-guide.md) - Cómo proponer cambios al estándar
 
 ---
 
