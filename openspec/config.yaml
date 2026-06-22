@@ -1,0 +1,67 @@
+# OpenSpec Configuration — tlm-doc-diagram-standards
+
+## Project
+
+- **name**: tlm-doc-diagram-standards
+- **type**: documentation/standards
+- **description**: Arquitectura C4 diagram standards and corporate Draw.io library
+- **primary_language**: es (documents)
+- **technical_language**: en (technical terms, component names)
+
+## Stack
+
+- **tool**: Draw.io
+- **diagram_model**: C4 (Context, Container, Component, Deployment)
+- **library**: TLM - Librería C4.xml (46 elements)
+- **formats**: .drawio (versioned), .png (export)
+
+## Conventions
+
+### Visual
+
+| Category | Color | Hex |
+|----------|-------|-----|
+| System | Azul | `#B2CEFF` |
+| App | Morado claro | `#E1D5E7` |
+| Store | Coral claro | `#F8CECC` |
+| Component (C3) | Amarillo claro | `#FFF2CC` |
+| Person | Verde claro | `#D5E8D4` |
+| External | Gris | `#DFDFDF` |
+
+### Shapes
+
+- Rounded rect: APIs, servicios, workers, apps
+- Cilindro vertical: DBs, cache
+- Cilindro horizontal: Message bus, colas
+- Folder: Object storage
+- Hexágono: API Gateway
+
+### Structure
+
+```
+Nombre del Componente
+[Tipo: Tecnología]
+Descripción breve.
+```
+
+### Nomenclature
+
+- English para elementos técnicos
+- Singular: "User Service" not "Users Service"
+- Formato: `[Dominio] Service`, `dominio-db`, `tipo.dominio.entidad.accion` (Kafka)
+- No abreviaciones (excepto: API, DB, HTTP, CDC, ETL)
+
+## Testing
+
+**Status**: N/A — documentation-only project, no code to test
+
+## Diagram Types
+
+| Type | Status | Notes |
+|------|--------|-------|
+| C1 Context | Obligatorio | ≤10 elementos |
+| C2 Container | Obligatorio | ≤20 elementos |
+| C3 Component | Condicional | ≤12 elementos, si aplica |
+| Deployment | Obligatorio | Para producción |
+| Sequence | Recomendado | PlantUML, Mermaid |
+| C4 Code | Prohibido | Usar código fuente |

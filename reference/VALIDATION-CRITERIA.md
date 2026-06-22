@@ -92,6 +92,7 @@ Checklists esenciales para validación rápida durante creación, PR review y au
 - [ ] Singular: "User Service" no "Users Service"
 - [ ] Sin abreviaciones: No "svc", "proc", "mgr"
 - [ ] Formato: `dominio-db`, `tipo.dominio.entidad.accion` (Kafka)
+- [ ] **Pestañas exportables**: nombres siguen `[Nombre] - [Tipo]` (ver [§15](../STANDARDS.md#-15-convención-de-pestañas))
 
 ---
 
@@ -109,6 +110,7 @@ Copiar en el PR:
 - [ ] Metadata actualizada (versión, fecha, owner)
 - [ ] Todas las flechas etiquetadas
 - [ ] Límites de elementos respetados (C1≤10, C2≤20, C3≤12)
+- [ ] Si se modificó un `.drawio`, ¿el workflow generó/actualizó el `.png` en este PR?
 - [ ] Diagramas en Git (`.drawio`)
 ```
 

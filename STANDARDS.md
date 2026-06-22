@@ -1,6 +1,6 @@
 # Estándares de Diagramas de Arquitectura
 
-**Última actualización**: 2026-06-04
+**Última actualización**: 2026-06-21
 **Versión**: 1.0
 
 ---
@@ -25,6 +25,8 @@
 
 ## 📦 2. COMPONENTES ESTÁNDAR
 
+**46 elementos totales — 30 componentes + 12 flechas + 3 boundaries + 1 leyenda**
+
 ### Actores
 
 | Componente          | Shape | Icono | Color     | Tipo                | Uso                          |
@@ -38,7 +40,9 @@
 | ------------------- | --------------------------------------------------------------- | ----------- | --------- | ------------------- | ------------------------------- |
 | **System**          | Rectángulo redondeado                                           | server      | `#B2CEFF` | `[System]`          | Sistemas internos               |
 | **External System** | Rectángulo redondeado                                           | cloud       | `#DFDFDF` | `[External System]` | Sistemas externos, third-party  |
-| **Boundary**        | Rectángulo redondeado (sin relleno, borde sólido o discontinuo) | layer-group | Ninguno   | N/A                 | Agrupación de módulos/contextos |
+| **Agrupador de Sistema** | Rectángulo (borde discontinuo, sin relleno) | layer-group | `#666666` (borde) | c4Type=`SystemScopeBoundary` | C2 — define el límite/alcance de un sistema mostrando sus containers internos |
+| **Agrupador de Aplicación** | Rectángulo (borde discontinuo, sin relleno) | layer-group | `#666666` (borde) | c4Type=`ContainerScopeBoundary` | C3 — define el límite/alcance de un container mostrando sus componentes internos |
+| **Agrupador** | Rectángulo (borde sólido, sin relleno) | layer-group | `#666666` (borde) | c4Type=`Boundary` | Multi-propósito: dominios, módulos, cloud, infraestructura |
 
 ### App (morado `#E1D5E7`)
 
@@ -52,6 +56,7 @@
 | **Batch**           | Rectángulo redondeado | clock      | Proceso batch/programado             |
 | **CDC Processor**   | Rectángulo redondeado | sync       | Procesador CDC (Change Data Capture) |
 | **API Gateway**     | Hexágono              | shield     | Gateway/Proxy de entrada             |
+| **Aplicación**      | Rectángulo redondeado | monitor    | Aplicación genérica (no específica) — c4Technology=`ej. Tecnología` |
 
 ### Store (coral `#F8CECC`)
 
@@ -63,6 +68,7 @@
 | **Event Bus**           | Cilindro horizontal | waves        | Bus de eventos (Kafka)                                    | Pub/Sub        |
 | **Queue**               | Cilindro horizontal | list-ordered | Cola de mensajes                                          | Point-to-Point |
 | **Object Storage**      | Folder              | folder       | Almacenamiento (S3, File Server)                          | -              |
+| **Almacenamiento**     | Cilindro vertical   | database     | Almacenamiento genérico (no específico) — c4Technology=`ej. Tecnología` | - |
 
 ### Componentes C3 (amarillo `#FFF2CC`)
 
@@ -78,6 +84,14 @@
 | **Consumer**   | Rectángulo redondeado | inbox       | Consumer - consume eventos/mensajes      |
 | **Mapper**     | Rectángulo redondeado | shuffle     | Mapper - transformación de datos         |
 | **Validator**  | Rectángulo redondeado | check       | Validator - validación de datos          |
+
+### Leyenda
+
+La **Leyenda** es un meta-elemento opcional que explica la clave de colores y formas del diagrama. Se representa como un componente con `Title="Leyenda"`.
+
+| Componente | Shape | Icono | Color | Uso |
+| --- | --- | --- | --- | --- |
+| **Leyenda** | Meta-elemento | n/a | n/a | Explica la clave de colores/shapes del diagrama |
 
 ---
 
@@ -100,11 +114,11 @@
 | ------------------- | ----------------- | ---------------------------------- | ------------------------------ |
 | **Relación**        | Sólida →          | `<Propósito>`<br>`[<Protocolo>]`   | Genérico con protocolo         |
 | **Relación Simple** | Sólida →          | `<Propósito>`                      | Genérico sin protocolo (C1/C3) |
-| **REST/HTTP**       | Sólida →          | `<Propósito>`<br>`[HTTPS]`         | Llamadas HTTPS                 |
+| **HTTPS**          | Sólida →          | `<Propósito>`<br>`[HTTPS]`         | Llamadas HTTPS                 |
 | **HTTP**            | Sólida →          | `<Propósito>`<br>`[HTTP]`          | Llamadas HTTP                  |
 | **SOAP**            | Sólida →          | `<Propósito>`<br>`[SOAP]`          | Servicios SOAP/XML             |
 | **gRPC**            | Sólida →          | `<Propósito>`<br>`[gRPC]`          | Llamadas gRPC                  |
-| **Evento**          | Discontinua - - → | `<Nombre evento>`<br>`[Kafka]`     | Publicación de eventos         |
+| **Evento**          | Discontinua - - → | `<Nombre evento (formato §9)>`<br>`<evt.payment.invoice.created>`<br>`[Kafka]` | Publicación de eventos         |
 | **Queue**           | Discontinua - - → | `<Nombre mensaje>`<br>`[SQS]`      | Mensajes en cola               |
 | **CDC**             | Discontinua - - → | `Capturar cambios`<br>`[CDC]`      | Change Data Capture            |
 | **Batch**           | Punteada · · · →  | `<Propósito proceso>`<br>`[Batch]` | Procesos batch                 |
@@ -121,6 +135,8 @@
 
 - Flechas completamente vacías (sin propósito)
 - Flechas bidireccionales (usar dos flechas separadas)
+
+**Nota sobre eventos**: Los nombres de eventos siguen la nomenclatura de §9 — prefijo `tipo.dominio.entidad.acción`.
 
 ---
 
@@ -140,7 +156,8 @@
 - ❌ Internos del sistema (APIs, DBs)
 - ❌ Tecnologías específicas
 - ❌ Componentes
-- ❌ Preferiblemente no más de 10 elementos (si excede, evaluar dividir)
+- ❌ **Límite recomendado**: 10 elementos. Exceder requiere división en múltiples diagramas.
+- ❌ **Tope absoluto**: 25 elementos por diagrama (ver §8). Excepciones documentadas en el README del diagrama.
 
 **Propósito**: Mostrar el sistema en su contexto - qué hace, quién lo usa, con qué se integra.
 
@@ -164,7 +181,8 @@
 
 - ❌ Componentes internos
 - ❌ Infraestructura (eso va en Deployment)
-- ❌ Preferiblemente no más de 20 elementos (si excede, evaluar dividir)
+- ❌ **Límite recomendado**: 20 elementos. Exceder requiere división en múltiples diagramas.
+- ❌ **Tope absoluto**: 25 elementos por diagrama (ver §8). Excepciones documentadas en el README del diagrama.
 
 **Propósito**: Mostrar la arquitectura interna del sistema - aplicaciones, servicios, bases de datos y cómo se comunican.
 
@@ -202,7 +220,8 @@
 
 - ❌ Clases o métodos (C4 modela componentes, no unidades de código)
 - ❌ Componentes de múltiples containers
-- ❌ Preferiblemente no más de 12 componentes (si excede, evaluar dividir)
+- ❌ **Límite recomendado**: 12 componentes. Exceder requiere división en múltiples diagramas.
+- ❌ **Tope absoluto**: 25 elementos por diagrama (ver §8). Excepciones documentadas en el README del diagrama.
 
 **Propósito**: Mostrar la organización interna de un servicio/API específico - sus componentes y responsabilidades.
 
@@ -313,6 +332,7 @@ Gestiona información de empleados y procesos de RRHH.
 
 - Elementos planeados mantienen el color de su categoría (morado/coral) + borde discontinuo
 - **Draw.io**: Dashed (1) + Border Width 1.5px
+- **Deprecado (opcional)**: No existe elemento en la librería para este estado. Se representa con un componente estándar (cualquier categoría) con borde discontinuo + estereotipo `<<Deprecated>>` en la línea 2 entre corchetes, p. ej. `[App: .NET 8] <<Deprecated>>`. Es optativo — los equipos que no lo necesiten pueden omitirlo.
 
 ### Tamaños Estándar
 
@@ -400,6 +420,7 @@ Gestiona información de empleados y procesos de RRHH.
 9. [ ] **Límite de elementos** - Cumple los límites por nivel definidos en Sección 8
 10. [ ] **Layout limpio** - Sin cruces innecesarios, flujo claro
 11. [ ] **Actualizado** - Refleja el estado real del sistema
+12. [ ] **Convención de pestañas** - Si el archivo `.drawio` tiene pestañas exportables, sus nombres siguen el patrón `[Nombre del Sistema] - [Tipo]` (ver §15). Tabs `borrador`, `WIP`, etc. deben existir solo como pestañas no exportables.
 
 ---
 
@@ -407,7 +428,7 @@ Gestiona información de empleados y procesos de RRHH.
 
 ### Prohibido
 
-1. **Diagramas con más de 25 elementos** - Preferible evaluar partición. Excepciones justificadas (deployment enterprise, integration diagram) son aceptables si se documentan en el README del diagrama. Los límites C1 ≤10, C2 ≤20, C3 ≤12 aplican a cada diagrama individual.
+1. **Diagramas con más de 25 elementos** — Tope absoluto. Exceder requiere justificación documentada en el README del diagrama y aprobación de un revisor de Architecture. Límites recomendados por nivel: C1 ≤ 10, C2 ≤ 20, C3 ≤ 12. Deployment y diagramas de integración pueden acercarse al tope si documentan infraestructura real.
 2. **Herramientas no autorizadas** - Usar exclusivamente Draw.io o las herramientas listadas en Sección 11. Diagramas one-off en otras herramientas se degradan rápido (no se versionan, no se reutilizan, no se enlazan con código).
 3. **Mezclar niveles C4** - Un nivel por diagrama
 4. **Diagramas sin metadata** - Incluir owner, fecha, versión
@@ -437,7 +458,7 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 ❌ **Evitar**: `bff-checkout-svc`, `mfe-billing-frontend`, `webapp-1`
 
-**Nota**: No se añaden nuevos componentes a la librería oficial. BFF/MFE/SSR usan los mismos componentes `App` estándar.
+**Nota**: El campo tecnología captura el stack real del equipo (Next.js, Angular SSR, Nuxt, Remix). El framework SSR ya implica React/Vue subyacente; no duplicar. No se añaden nuevos componentes a la librería oficial. BFF/MFE/SSR usan los mismos componentes `App` estándar.
 
 ### Bases de Datos
 
@@ -525,34 +546,37 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 ### Herramientas Autorizadas (casos específicos)
 
 - **Sequence Diagrams**: PlantUML, Mermaid
-- **Diagrams-as-Code**: Structurizr DSL
 - **Cloud Diagrams**: AWS Architecture Icons, Azure Icons
 
-### Automatización de Export a PNG (Recomendado)
+### Workflow de Exportación Automática
 
-El export manual de `.drawio` → `.png` se desactualiza fácilmente. Se **recomienda** automatizarlo en CI/CD para garantizar que el PNG del README/docs siempre refleje el estado del diagrama.
+El export manual de `.drawio` → `.png` se desactualiza fácilmente. Se usa un **workflow compartido** para automatizar la exportación de PNGs por cada PR que modifica un archivo `.drawio`.
 
-**Opciones:**
+**Repositorio compartido**: [`tlm-org/diagram-export-workflow`](https://github.com/tlm-org/diagram-export-workflow)
 
-- **GitHub Actions**: [`rlespinasse/drawio-export-action`](https://github.com/rlespinasse/drawio-export-action)
-- **Script local**: `drawio-batch` ejecutable desde `package.json` o `Makefile`
+**Adopción**: Cada equipo opta por usar el workflow referenciándolo en su `.github/workflows/`.
 
-**Ejemplo mínimo (GitHub Actions):**
+**Trigger**:
 
 ```yaml
-name: Export Diagrams
-on: [push]
-jobs:
-  export:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: rlespinasse/drawio-export-action@v1
-        with:
-          drawio-file-path: "docs/architecture/**/*.drawio"
-          format: png
-          output-path: "docs/architecture/png/"
+on: pull_request
+  paths:
+    - '**.drawio'
 ```
+
+**Permisos**: `contents: write`
+
+**Comportamiento**:
+
+1. Por cada pestaña del `.drawio` que matchee el patrón de §15, se exporta un PNG
+2. Las pestañas que **no** matcheen el patrón (§15) se ignoran silenciosamente
+3. Si el PNG generado es byte-identical al ya existente en el branch, no se hace commit
+4. Los PNGs se hacen commit al **mismo branch** del PR — nunca a `main`
+5. El workflow nunca abre un nuevo PR ni crea issues
+
+**Checklist PR** (nuevo item):
+
+- [ ] Si se modificó un `.drawio`, ¿el workflow generó/actualizó el `.png` en este PR?
 
 ---
 
@@ -577,7 +601,7 @@ jobs:
 | ----------------- | --------------------- | --------- | ------------------------------- |
 | **Pod/Container** | Rectángulo redondeado | `#E1D5E7` | Contenedor individual           |
 | **VM/EC2**        | Rectángulo            | `#E8EAF6` | Máquina virtual                 |
-| **Load Balancer** | Hexágono              | `#B2CEFF` | Balanceador de carga (ALB, NLB) |
+| **Load Balancer** | Hexágono              | `#E1D5E7` | Balanceador de carga (ALB, NLB) — **categoría App** porque es un API Gateway managed |
 
 **Nota**: Para Databases, Object Storage y Message Brokers, usar los componentes **Store** definidos en la Sección 2.
 
@@ -586,7 +610,7 @@ jobs:
 **Aplicación:**
 
 - Kong/API Gateway (pod propio) → **morado** (es App)
-- AWS ALB / NLB (gestionado) → **azul** (es infraestructura)
+- AWS ALB / NLB (gestionado) → **morado** (es API Gateway managed, no infraestructura de red)
 - Debezium CDC (pod propio) → **morado** (es App)
 - AWS RDS (gestionado) → **coral** (es Store)
 
@@ -631,6 +655,42 @@ Pod → Kafka: TCP:9092
 
 - [Validation Criteria](./reference/validation-criteria.md) - Checklists para PR y auditorías
 - [Best Practices](./reference/c4-best-practices.md) - Principios y anti-patrones
+
+---
+
+## 📑 15. CONVENCIÓN DE PESTAÑAS
+
+### Propósito
+
+El workflow de CI/CD (ver §11) necesita identificar automáticamente qué pestañas de un archivo `.drawio` representan diagramas exportables. Esta convención define el patrón que el workflow usa para distinguir pestañas exportables de borradores y notas.
+
+### Patrón de nombres
+
+`^([^ ].*) - (Context|Container|Component|Deployment|Sequence|Integration|Data Flow|Network|Infrastructure)$`
+
+| Parte | Descripción |
+| --- | --- |
+| `([^ ].*)` | `[Nombre del Sistema]`: cualquier string no vacío que no empiece con espacio |
+| ` - ` | Separador literal (espacio-guión-espacio) |
+| `[Tipo]` | Enum exacto: `Context`, `Container`, `Component`, `Deployment`, `Sequence`, `Integration`, `Data Flow`, `Network`, `Infrastructure` |
+
+### Ejemplos correctos ✅
+
+- `Payment System - Container`
+- `Identity - Context`
+- `Real-Time Order Processing - Context`
+
+### Ejemplos incorrectos ❌
+
+- `borrador` — falta el separador ` - ` y el Tipo
+- ` - Container` — nombre de sistema vacío
+- `Payment_Container` — separador incorrecto (debe ser ` - ` no `_`)
+- `Payment - Wireframe` — `Wireframe` no es un Tipo permitido
+- `Identity - C2` — `C2` no es un Tipo válido (usar `Container`)
+
+### Comportamiento del workflow
+
+Pestañas que **no** matchean el patrón son **ignoradas silenciosamente** — sin warning, sin error, sin PNG generado. Pestañas `borrador`, `WIP`, `WIP - Context`, etc. deben crearse como pestañas **no exportables** en Draw.io.
 
 ---
 

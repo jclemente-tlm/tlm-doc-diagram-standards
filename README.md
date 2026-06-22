@@ -78,6 +78,8 @@ La documentación detallada está en [\`/reference/\`](./reference/):
 
 - [Validation Criteria](./reference/validation-criteria.md) - Checklists para PR y auditorías
 - [Best Practices](./reference/c4-best-practices.md) - Principios y anti-patrones
+- [Cheat Sheet](./reference/cheat-sheet.md) - Referencia rápida
+- [Guía de Contribución](./reference/contribution-guide.md) - Cómo proponer cambios
 
 **⚠️ Nota**: La mayoría de los equipos NO necesita leer la documentación de referencia. [STANDARDS.md](./STANDARDS.md) cubre el 95% de los casos de uso.
 
@@ -95,7 +97,9 @@ La documentación detallada está en [\`/reference/\`](./reference/):
 │
 └── /reference                   # 📚 Documentación detallada (lectura opcional)
     ├── validation-criteria.md   # Checklists para PR y auditorías
-    └── c4-best-practices.md     # Principios y anti-patrones
+    ├── c4-best-practices.md     # Principios y anti-patrones
+    ├── cheat-sheet.md           # Referencia rápida
+    └── contribution-guide.md    # Cómo proponer cambios
 ```
 
 ---
@@ -212,17 +216,12 @@ Ver todas las prohibiciones en [STANDARDS.md - Sección 8](./STANDARDS.md#-8-pro
 
 ## 🚀 Mejoras y Contribuciones
 
-Para sugerir mejoras a los estándares:
-
-1. Crear issue/PR con justificación
-2. Discutir en \`#architecture\`
-3. Obtener aprobación del Architecture Team
-4. Actualizar documentación + librería
+Para sugerir mejoras a los estándares, ver [Guía de Contribución](./reference/contribution-guide.md).
 
 ---
 
 **Versión**: 1.0 (Final)
-**Última actualización**: 2026-06-04
+**Última actualización**: 2026-06-21
 **Mantenedores**: Architecture Team
 
 ---
