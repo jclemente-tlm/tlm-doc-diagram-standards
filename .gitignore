@@ -24,3 +24,6 @@ Desktop.ini
 # Personal notes (if any)
 notas-personal.md
 scratch.md
+
+# AI tooling metadata (local skill registries, agent caches)
+.atl/
