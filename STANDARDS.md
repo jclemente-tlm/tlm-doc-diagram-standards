@@ -42,14 +42,14 @@
 
 ## 📦 2. COMPONENTES ESTÁNDAR
 
-**47 elementos totales**
+**48 elementos totales**
 
-Librería (35):
+Librería (36):
 
 - 2 actores (Person, External Person)
 - 2 sistemas (System, External System)
 - 3 agrupadores (boundaries)
-- 10 App
+- 11 App
 - 7 Store
 - 10 componentes C3
 - 1 leyenda
@@ -67,7 +67,7 @@ Flechas (12) → ver §3
 
 | Componente          | Shape                 | Icono  | Color     | Tipo                | Uso                             |
 | ------------------- | --------------------- | ------ | --------- | ------------------- | ------------------------------- |
-| **System**          | Rectángulo redondeado | server | `#B2CEFF` | `[System]`          | Sistemas internos               |
+| **System**          | Rectángulo redondeado | server-2 | `#B2CEFF` | `[System]`          | Sistemas internos               |
 | **External System** | Rectángulo redondeado | cloud  | `#DFDFDF` | `[External System]` | Sistemas externos, third-party  |
 
 ### Agrupadores (Boundaries)
@@ -76,9 +76,9 @@ Los agrupadores son constructos de visualización, no entidades de primera clase
 
 | Componente                  | Borde       | Icono          | Color (borde) | c4Type                       | Uso                                                                              |
 | --------------------------- | ----------- | -------------- | ------------- | ---------------------------- | -------------------------------------------------------------------------------- |
-| **Agrupador de Sistema**    | Discontinuo | layer-group    | `#666666`     | `SystemScopeBoundary`        | C2 — define el límite/alcance de un sistema mostrando sus containers internos    |
-| **Agrupador de Aplicación** | Discontinuo | layer-group    | `#666666`     | `ContainerScopeBoundary`     | C3 — define el límite/alcance de un container mostrando sus componentes internos |
-| **Agrupador**               | Sólido      | layer-group    | `#666666`     | `Boundary`                   | Multi-propósito: dominios, módulos, cloud, infraestructura                       |
+| **Agrupador de Sistema**    | Discontinuo | stack          | `#666666`     | `SystemScopeBoundary`        | C2 — define el límite/alcance de un sistema mostrando sus containers internos    |
+| **Agrupador de Aplicación** | Discontinuo | stack          | `#666666`     | `ContainerScopeBoundary`     | C3 — define el límite/alcance de un container mostrando sus componentes internos |
+| **Agrupador**               | Sólido      | stack          | `#666666`     | `Boundary`                   | Multi-propósito: dominios, módulos, cloud, infraestructura                       |
 
 **Nombres recomendados:**
 
@@ -101,15 +101,16 @@ Los agrupadores son constructos de visualización, no entidades de primera clase
 
 | Componente          | Shape                 | Icono        | Uso                                                                  |
 | ------------------- | --------------------- | ------------ | -------------------------------------------------------------------- |
-| **Web Application** | Rectángulo redondeado | monitor      | Aplicación web                                                       |
-| **Mobile App**      | Rectángulo redondeado | smartphone   | Aplicación móvil                                                     |
-| **API**             | Rectángulo redondeado | code         | API REST/gRPC                                                        |
-| **Microservice**    | Rectángulo redondeado | boxes        | Microservicio                                                        |
-| **Worker**          | Rectángulo redondeado | cog          | Background worker                                                    |
-| **Batch**           | Rectángulo redondeado | play         | Proceso batch/programado                                             |
-| **CDC Processor**   | Rectángulo redondeado | sync         | Procesador CDC (Change Data Capture)                                 |
+| **Web Application**     | Rectángulo redondeado | world-www     | Aplicación web                                                       |
+| **Mobile App**          | Rectángulo redondeado | device-mobile | Aplicación móvil                                                     |
+| **Desktop Application** | Rectángulo redondeado | device-desktop | Aplicación de escritorio (Electron, Tauri, .NET WPF, macOS/Windows native) |
+| **API**             | Rectángulo redondeado | arrows-left-right | API REST/gRPC                                                   |
+| **Microservice**    | Rectángulo redondeado | packages     | Microservicio                                                        |
+| **Worker**          | Rectángulo redondeado | loader       | Background worker                                                    |
+| **Batch**           | Rectángulo redondeado | clock        | Proceso batch/programado                                             |
+| **CDC Processor**   | Rectángulo redondeado | database-export | Procesador CDC (Change Data Capture)                              |
 | **API Gateway**     | Hexágono              | shield-half  | Gateway/Proxy de entrada                                             |
-| **Function**        | Rectángulo redondeado | zap          | Función serverless (AWS Lambda, Azure Functions, GCP Cloud Functions) |
+| **Function**        | Rectángulo redondeado | cloud-code   | Función serverless (AWS Lambda, Azure Functions, GCP Cloud Functions) |
 | **Aplicación**      | Rectángulo redondeado | app-window   | Aplicación genérica (escape hatch para casos no cubiertos) — c4Technology=`ej. Tecnología` |
 
 ### Store (coral `#F8CECC`)
@@ -117,12 +118,12 @@ Los agrupadores son constructos de visualización, no entidades de primera clase
 | Componente              | Shape               | Icono        | Uso                                                                                  |
 | ----------------------- | ------------------- | ------------ | ------------------------------------------------------------------------------------ |
 | **Relational Database** | Cilindro vertical   | database     | Base de datos relacional (PostgreSQL, Oracle, SQL Server)                            |
-| **NoSQL Database**      | Cilindro vertical   | table-2      | Base de datos NoSQL (DynamoDB)                                                       |
+| **NoSQL Database**      | Cilindro vertical   | file-database | Base de datos NoSQL (DynamoDB)                                                     |
 | **Cache**               | Cilindro vertical   | bolt         | Cache distribuido (Redis)                                                            |
-| **Event Bus**           | Cilindro horizontal | radio-tower  | Bus de eventos pub/sub (Kafka, NATS, Pulsar)                                         |
-| **Queue**               | Cilindro horizontal | list-ordered | Cola de mensajes (Point-to-Point)                                                    |
+| **Event Bus**           | Cilindro horizontal | timeline-event-text | Bus de eventos pub/sub (Kafka, NATS, Pulsar)                                |
+| **Queue**               | Cilindro horizontal | list-numbers | Cola de mensajes (Point-to-Point)                                                    |
 | **Object Storage**      | Folder              | folder-open  | Almacenamiento de objetos (S3, File Server)                                          |
-| **Almacenamiento**      | Cilindro vertical   | archive      | Almacenamiento genérico (no específico) — c4Technology=`ej. Tecnología`              |
+| **Almacenamiento**      | Cilindro vertical   | server       | Almacenamiento genérico (no específico) — c4Technology=`ej. Tecnología`              |
 
 **Nota sobre patrones**: `Event Bus` implementa semántica pub/sub (varios consumers), `Queue` implementa point-to-point (un solo consumer). El resto de los Stores son neutrales respecto al patrón de acceso.
 
@@ -131,14 +132,14 @@ Los agrupadores son constructos de visualización, no entidades de primera clase
 | Componente     | Shape                 | Icono       | Uso                                      |
 | -------------- | --------------------- | ----------- | ---------------------------------------- |
 | **Component**  | Rectángulo redondeado | box         | Componente genérico                      |
-| **Controller** | Rectángulo redondeado | route       | Controller (MVC) - maneja requests       |
-| **Service**    | Rectángulo redondeado | cog         | Service - lógica de negocio              |
+| **Controller** | Rectángulo redondeado | arrows-split | Controller (MVC) - maneja requests      |
+| **Service**    | Rectángulo redondeado | settings    | Service - lógica de negocio              |
 | **Repository** | Rectángulo redondeado | database    | Repository - acceso a datos              |
 | **Adapter**    | Rectángulo redondeado | plug        | Adapter - integración con externos       |
-| **Client**     | Rectángulo redondeado | download    | Client - consume APIs de otros servicios |
+| **Client**     | Rectángulo redondeado | arrow-down    | Client - consume APIs de otros servicios |
 | **Publisher**  | Rectángulo redondeado | send        | Publisher - publica eventos              |
 | **Consumer**   | Rectángulo redondeado | inbox       | Consumer - consume eventos/mensajes      |
-| **Mapper**     | Rectángulo redondeado | shuffle     | Mapper - transformación de datos         |
+| **Mapper**     | Rectángulo redondeado | replace     | Mapper - transformación de datos         |
 | **Validator**  | Rectángulo redondeado | check       | Validator - validación de datos          |
 
 ### Reglas para External
@@ -149,10 +150,10 @@ Las siguientes reglas consolidan el tratamiento de elementos externos (third-par
 
 | Tipo externo                | Shape                 | Icono       | Color     | Ejemplos                              |
 | --------------------------- | --------------------- | ----------- | --------- | ------------------------------------- |
-| **External App / SaaS**     | Rectángulo redondeado | cloud / app | `#DFDFDF` | Salesforce, Workday, Kong externo     |
+| **External App / SaaS**     | Rectángulo redondeado | cloud / app-window | `#DFDFDF` | Salesforce, Workday, Kong externo     |
 | **External Store (DB)**     | Cilindro vertical     | database    | `#DFDFDF` | RDS externo, Aurora, Cosmos externo   |
 | **External Store (Obj.)**   | Folder                | folder-open | `#DFDFDF` | S3 externo, Azure Blob                |
-| **External Store (Broker)** | Cilindro horizontal   | radio-tower | `#DFDFDF` | Confluent Cloud, Amazon MQ            |
+| **External Store (Broker)** | Cilindro horizontal   | timeline-event-text | `#DFDFDF` | Confluent Cloud, Amazon MQ       |
 | **External System**         | Rectángulo redondeado | cloud       | `#DFDFDF` | Sistema genérico third-party          |
 | **External Person**         | Actor                 | user        | `#DFDFDF` | Cliente final, usuario externo        |
 
