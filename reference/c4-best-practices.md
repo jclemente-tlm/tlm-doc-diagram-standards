@@ -95,14 +95,14 @@ Principios fundamentales, anti-patrones y recomendaciones para crear diagramas e
 ### Event-Driven Architecture
 
 **Clarity en Eventos**:
-- Etiquetar eventos: `[Order Service] --"OrderCreated"--> [Event Bus]`
+- Etiquetar eventos: `[Order Service] --"OrderCreated"--> [order.events (topic)]`
 - Usar líneas dashed (async)
 - Indicar topic name
 
 ### CDC (Change Data Capture)
 
 ```
-[Oracle DB] --CDC (Debezium)--> [Kafka] --"user.changes"--> [Service]
+[Oracle DB] --CDC (Debezium)--> [user.changes (topic)] --"user.changes"--> [Service]
 ```
 
 1. Etiquetar explícitamente como "CDC"
@@ -120,7 +120,7 @@ Principios fundamentales, anti-patrones y recomendaciones para crear diagramas e
 ### Integraciones con Sistemas Legacy
 
 **Clarity en Integración**:
-- Marcar como externo con color/forma apropiada
+- Representar el sistema externo como una caja negra `External System` gris, sin detallar su estructura interna
 - Indicar protocolo claramente: SOAP/XML, RFC, REST
 - Mostrar adapter pattern: `[Service] → [SAP Adapter] → [SAP ERP]`
 
@@ -173,4 +173,4 @@ Principios fundamentales, anti-patrones y recomendaciones para crear diagramas e
 
 ## Referencias
 
-- [Validation Criteria](./validation-criteria.md) - Checklists para validación
+- [Validation Criteria](./VALIDATION-CRITERIA.md) - Checklists para validación

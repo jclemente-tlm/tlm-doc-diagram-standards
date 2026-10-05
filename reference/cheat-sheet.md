@@ -26,7 +26,7 @@ Referencia rápida para crear y validar diagramas C4. Ver [STANDARDS.md](../STAN
 | Cilindro vertical | Bases de datos, cache |
 | Cilindro horizontal | Message bus, colas, event bus |
 | Folder | Object storage, file storage |
-| Hexágono | API Gateway, Reverse Proxy, Load Balancer |
+| Hexágono | Load Balancer en Deployment cuando corresponda; no forma básica C4 |
 | Actor | Usuarios (Person, External Person) |
 | Rect (dashed/solid border) | Boundary (System/Container/Generic) |
 
@@ -44,7 +44,7 @@ Referencia rápida para crear y validar diagramas C4. Ver [STANDARDS.md](../STAN
 
 ---
 
-## Convenión de Pestañas
+## Convención de Pestañas
 
 **Patrón**: `^([^ ].*) - (Context|Container|Component|Deployment|Sequence|Integration|Data Flow|Network|Infrastructure)$`
 
@@ -67,8 +67,8 @@ Referencia rápida para crear y validar diagramas C4. Ver [STANDARDS.md](../STAN
 
 1. [ ] **Título + Metadata** — Nombre del sistema + tipo de diagrama + fecha + owner
 2. [ ] **Colores** — Según paleta corporativa
-3. [ ] **Shapes** — Cilindro = DB, folder = storage, hexágono = gateway
-4. [ ] **Componentes** — Formato `[Tipo: Tecnología]` en todos los elementos
+3. [ ] **Shapes** — Cilindro vertical = base de datos, horizontal = cola/topic, folder = object storage
+4. [ ] **Elementos** — Orden: nombre → categoría/tecnología → descripción; tecnología real para App y Store
 5. [ ] **Flechas etiquetadas** — Protocolo + propósito en todas
 
 ---
@@ -76,4 +76,4 @@ Referencia rápida para crear y validar diagramas C4. Ver [STANDARDS.md](../STAN
 ## Links
 
 - [STANDARDS.md](../STANDARDS.md) — Documento principal
-- [Validation Criteria](./validation-criteria.md) — Checklists detallados
+- [Validation Criteria](./VALIDATION-CRITERIA.md) — Checklists detallados

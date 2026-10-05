@@ -8,7 +8,7 @@ Guía para proponer cambios a los estándares de diagramas de arquitectura.
 
 **Architecture Team** es el source-of-truth para los estándares de diagramas.
 
-**Repositorio principal**: [`tlm-doc-diagram-standards`](https://github.com/tlm-org/tlm-doc-diagram-standards)
+**Repositorio principal**: [`tlm-doc-diagram-standards`](https://github.com/jclemente-tlm/tlm-doc-diagram-standards)
 
 Los cambios son bienvenidos — este documento explica cómo proponer y aprobar cambios.
 
@@ -74,7 +74,7 @@ No hay release tags ni changelog formal. La fecha de `STANDARDS.md` es la versi�
 
 1. Abrir `TLM - Librería C4.xml` en Draw.io (File → Open Library)
 2. File → Edit Library
-3. Agregar el nuevo componente con: shape, color, iconos, metadata
+3. Agregar el nuevo componente con: shape, color y metadata; mantener el orden visual nombre → categoría/tecnología → descripción
 4. Guardar el archivo XML
 
 ### Opción B: Editar XML directamente
@@ -98,6 +98,8 @@ El archivo `drawio-library/TLM - Librería C4.xml` contiene componentes en forma
 - `c4Type`: `Person`, `System`, `App`, `Store`, `Component`
 - `c4Technology`: Ejemplo de tecnología (o `n/a` si no aplica)
 - `c4Description`: Descripción de uso
+
+En la etiqueta visible, mostrar `c4Name` primero, luego `[c4Type: c4Technology]` (o solo `[c4Type]` cuando no corresponde tecnología) y al final `c4Description`. La forma y el color acompañan al texto, sin sustituirlo.
 
 ---
 

@@ -13,11 +13,11 @@
 Todo lo esencial en un solo lugar (~10 minutos de lectura):
 
 1. **Paleta corporativa** - Colores con códigos hex
-2. **46 elementos totales** - 30 componentes + 12 flechas + 3 boundaries + 1 leyenda
+2. **15 plantillas básicas** - 10 elementos + 2 relaciones + 2 boundaries + 1 leyenda
 3. **Reglas por nivel C4** - Qué incluir/excluir en C1, C2, C3
 4. **Guía rápida** - Start to finish en bullets
 5. **Reglas visuales** - Fuentes, tamaños, shapes, estructura de componentes
-6. **Checklist de 11 puntos** - Validación rápida
+6. **Checklist de 12 puntos** - Validación rápida
 7. **Prohibiciones** - Anti-patrones y errores comunes
 8. **Nomenclatura** - Reglas simples
 9. **Diagramas obligatorios** - Qué crear para cada tipo de sistema
@@ -34,12 +34,14 @@ Todo lo esencial en un solo lugar (~10 minutos de lectura):
 
 📦 **[TLM - Librería C4.xml](./drawio-library/TLM%20-%20Librería%20C4.xml)**
 
-46 elementos pre-configurados:
+15 plantillas básicas:
 
-- 30 componentes (Actores, Sistemas, Apps, Stores, Componentes C3)
-- 12 tipos de flechas (HTTPS, HTTP, SOAP, gRPC, Kafka, SQS, CDC, Batch, etc.)
-- 3 boundaries (Sistema, Container, Genérico)
+- 10 elementos (personas, sistemas, aplicaciones, almacenes y componente C3)
+- 2 relaciones editables (con o sin protocolo)
+- 2 boundaries (sistema y contenedor)
 - 1 leyenda de colores
+
+La [copia anterior de 64 entradas](./drawio-library/archive/TLM%20-%20Librería%20C4%20-%2064%20elementos.xml) se conserva como respaldo y referencia. Para diagramas nuevos, cargar solo la librería principal.
 
 **Instalación:**
 
@@ -48,17 +50,20 @@ Todo lo esencial en un solo lugar (~10 minutos de lectura):
 3. Seleccionar `TLM - Librería C4.xml`
 4. Arrastrar y soltar componentes
 
+**Si ya tenías cargada una versión anterior:** vuelve a abrir este archivo XML desde tu copia local y arrastra una forma nueva para comprobar el orden. Las formas que ya estaban colocadas en un diagrama conservan su propia etiqueta; reemplázalas o reordena sus campos en ese diagrama. Si abriste la librería desde GitHub, verás la versión anterior hasta que estos cambios se publiquen en el remoto.
+
 ## ⚡ Quick Start
 
 ### Primera vez creando un diagrama (30-45 min)
 
 1. **Lee** [STANDARDS.md](./STANDARDS.md) (10 min)
 2. **Instala** la librería Draw.io (2 min)
-3. **Abre** Draw.io y crea un nuevo diagrama
+3. **Abre** [el ejemplo C2](./examples/identity-container.drawio) en Draw.io o crea un nuevo diagrama
 4. **Arrastra** componentes de la librería
 5. **Etiqueta** todas las flechas
-6. **Valida** con el checklist de 11 puntos
-7. **Guarda** en Git
+6. **Valida** con el checklist de 12 puntos
+7. **Exporta** un PNG desde Draw.io y guárdalo junto al `.drawio` mientras no esté disponible el workflow compartido
+8. **Guarda** ambos archivos en Git
 
 ### Actualizando un diagrama existente (15-30 min)
 
@@ -70,13 +75,15 @@ Todo lo esencial en un solo lugar (~10 minutos de lectura):
 
 ---
 
+**Ejemplo de referencia:** [Identity System - Container](./examples/identity-container.drawio) usa formas C4 básicas y muestra título, metadata, componentes y conexiones etiquetadas.
+
 ## 📚 Documentación de Referencia
 
 **Solo para casos especiales o consultas profundas:**
 
 La documentación detallada está en [\`/reference/\`](./reference/):
 
-- [Validation Criteria](./reference/validation-criteria.md) - Checklists para PR y auditorías
+- [Validation Criteria](./reference/VALIDATION-CRITERIA.md) - Checklists para PR y auditorías
 - [Best Practices](./reference/c4-best-practices.md) - Principios y anti-patrones
 - [Cheat Sheet](./reference/cheat-sheet.md) - Referencia rápida
 - [Guía de Contribución](./reference/contribution-guide.md) - Cómo proponer cambios
@@ -93,10 +100,13 @@ La documentación detallada está en [\`/reference/\`](./reference/):
 ├── STANDARDS.md                 # ⭐ Documento principal de estándares
 │
 ├── /drawio-library              # Librería corporativa Draw.io
-│   └── TLM - Librería C4.xml    # 46 elementos pre-configurados
+│   ├── TLM - Librería C4.xml    # 15 plantillas básicas
+│   └── /archive                 # Copia anterior de 64 entradas
+├── /examples
+│   └── identity-container.drawio # Ejemplo C2 editable
 │
 └── /reference                   # 📚 Documentación detallada (lectura opcional)
-    ├── validation-criteria.md   # Checklists para PR y auditorías
+    ├── VALIDATION-CRITERIA.md   # Checklists para PR y auditorías
     ├── c4-best-practices.md     # Principios y anti-patrones
     ├── cheat-sheet.md           # Referencia rápida
     └── contribution-guide.md    # Cómo proponer cambios
@@ -169,7 +179,7 @@ Ver detalles en [STANDARDS.md - Sección 10](./STANDARDS.md#-10-diagramas-obliga
 
 ## 🏗️ Estructura de Componentes
 
-**Formato estándar para todos los componentes:**
+**Orden visual estándar para los elementos de la librería:**
 
 ```
 Nombre del Componente
@@ -197,7 +207,9 @@ Cliente
 Accede a servicios de autogestión.
 ```
 
-Ver estructura completa en [STANDARDS.md - Sección 2](./STANDARDS.md#-2-componentes-estándar)
+La forma y el color permiten reconocer la categoría. El nombre expresa el rol concreto (por ejemplo, API, Worker o Repository). Para `Person` y `System` se muestra solo la categoría; para `App` y `Store` se añade la tecnología real.
+
+Ver reglas completas en [STANDARDS.md - Sección 5](./STANDARDS.md#-5-reglas-visuales)
 
 ---
 
@@ -220,8 +232,8 @@ Para sugerir mejoras a los estándares, ver [Guía de Contribución](./reference
 
 ---
 
-**Versión**: 1.0 (Final)
-**Última actualización**: 2026-06-21
+**Versión del estándar**: 2.0
+**Última actualización**: 2026-10-05
 **Mantenedores**: Architecture Team
 
 ---

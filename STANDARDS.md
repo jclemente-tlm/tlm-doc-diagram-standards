@@ -1,6 +1,6 @@
 # Estándares de Diagramas de Arquitectura
 
-**Última actualización**: 2026-06-22
+**Última actualización**: 2026-10-05
 **Versión**: 2.0
 
 ---
@@ -25,152 +25,56 @@
 | **Component**       | Amarillo claro | `#FFF2CC`  | Componentes internos (C3)                                                                 |
 | **Person**          | Verde claro    | `#D5E8D4`  | Usuarios internos, empleados                                                              |
 | **External Person** | Gris           | `#DFDFDF`  | Usuarios externos, clientes                                                               |
-| **External System** | Gris           | `#DFDFDF`  | Sistemas externos, third-party (genérico, shape variable)                                 |
+| **External System** | Gris           | `#DFDFDF`  | Sistemas fuera de nuestro control, representados como cajas negras                        |
 | **Infrastructure**  | Lavanda        | `#E8EAF6`  | VMs/EC2 en Deployment                                                                     |
 | **Boundary**        | Gris oscuro    | `#666666`  | Bordes de agrupadores y boundaries (sin relleno)                                          |
 
-**Regla de precedencia (External)**: Cuando un componente es de terceros, el color gris (`#DFDFDF`) **sobrescribe** el color de categoría (morado/coral). El **shape semántico se preserva** para indicar la naturaleza del componente (cilindro para DB, folder para object storage, rectángulo para app/SaaS, cilindro horizontal para message broker). Esta regla cubre también los casos de `External App` (rectángulo redondeado gris) y `External Store` (cilindro o folder gris).
+**Regla para sistemas externos**: Los sistemas fuera de nuestro control se representan como `External System` (rectángulo redondeado gris `#DFDFDF`). Son cajas negras: no se dibujan sus aplicaciones, bases de datos, colas ni otros componentes internos. Un servicio cloud gestionado que pertenece a nuestra arquitectura y cuyos recursos configuramos sí se representa dentro de nuestro sistema con su categoría correspondiente (por ejemplo, `Store` para nuestra base de datos gestionada).
 
-**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores/pods propios. Solo cambian a color de infraestructura cuando son recursos cloud gestionados (ver §14).
+**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores/pods propios. El color de infraestructura se reserva para recursos de cómputo como VM/EC2 (ver §14).
 
 ### Accesibilidad
 
-- La diferenciación "externo" depende del color gris (`#DFDFDF`). En impresiones B/N o para personas con ceguera al color, añadir etiqueta textual `<<External>>` en la línea 2 o usar shape distintivo.
+- La diferenciación "externo" depende del color gris (`#DFDFDF`). En impresiones B/N o para personas con ceguera al color, añadir etiqueta textual `<<External>>` en la línea 2.
 - Verificar contraste mínimo WCAG AA (4.5:1) en etiquetas sobre fondos de color de categoría.
 
 ---
 
 ## 📦 2. COMPONENTES ESTÁNDAR
 
-**48 elementos totales**
+La librería principal contiene **15 plantillas**: 10 elementos, 2 relaciones, 2 agrupadores y 1 leyenda. Las plantillas representan categorías y formas reconocibles; el nombre, la tecnología y la descripción precisan el rol. No se crea una forma nueva para cada framework, protocolo o responsabilidad interna.
 
-Librería (36):
+| Plantilla | Forma y color | Uso |
+| --- | --- | --- |
+| `Person` | Actor verde `#D5E8D4` | Persona o rol interno. |
+| `External Person` | Actor gris `#DFDFDF` | Persona o rol externo. |
+| `System` | Rectángulo azul `#B2CEFF` | Sistema bajo nuestro alcance. |
+| `External System` | Rectángulo gris `#DFDFDF` | Sistema externo tratado como caja negra. |
+| `Application` | Rectángulo morado `#E1D5E7` | API, servicio, worker, proceso batch, función o gateway según su responsabilidad. |
+| `Web App` | Navegador morado `#E1D5E7` | Aplicación web cuya interfaz es relevante. |
+| `Database` | Cilindro vertical coral `#F8CECC` | Base de datos relacional, NoSQL o caché identificada por nombre y tecnología. |
+| `Queue or Topic` | Cilindro horizontal coral `#F8CECC` | Cola o topic **concreto**; no representa el broker completo. |
+| `Object Storage` | Folder coral `#F8CECC` | Almacenamiento de objetos. |
+| `Component` | Rectángulo amarillo `#FFF2CC` | Componente C3; el nombre expresa su responsabilidad, como Controller, Repository o Validator. |
 
-- 2 actores (Person, External Person)
-- 2 sistemas (System, External System)
-- 3 agrupadores (boundaries)
-- 11 App
-- 7 Store
-- 10 componentes C3
-- 1 leyenda
+`Application` es la opción base para aplicaciones. Usar `Web App` solo cuando la forma de navegador ayude a reconocer una interfaz web. `Database`, `Queue or Topic` y `Object Storage` conservan formas distintas porque comunican modos de almacenamiento distintos.
 
-Flechas (12) → ver §3
+### Agrupadores y leyenda
 
-### Actores
+- `System Scope Boundary`: delimita el sistema cuyos contenedores se muestran en C2.
+- `Container Scope Boundary`: delimita el contenedor cuyos componentes se muestran en C3.
+- `Legend`: explica colores y formas; usarla cuando el diagrama necesite una clave visual.
 
-| Componente          | Shape | Icono | Color     | Tipo                | Uso                          |
-| ------------------- | ----- | ----- | --------- | ------------------- | ---------------------------- |
-| **Person**          | Actor | user  | `#D5E8D4` | `[Person]`          | Usuarios internos, empleados |
-| **External Person** | Actor | user  | `#DFDFDF` | `[External Person]` | Usuarios externos, clientes  |
+Los agrupadores no son sistemas ni contenedores adicionales. Se muestran sin relleno y con borde discontinuo. Etiquetarlos con el nombre del alcance y evitar más de dos niveles de anidamiento.
 
-### Sistemas
+### Reglas para sistemas externos
 
-| Componente          | Shape                 | Icono  | Color     | Tipo                | Uso                             |
-| ------------------- | --------------------- | ------ | --------- | ------------------- | ------------------------------- |
-| **System**          | Rectángulo redondeado | server-2 | `#B2CEFF` | `[System]`          | Sistemas internos               |
-| **External System** | Rectángulo redondeado | cloud  | `#DFDFDF` | `[External System]` | Sistemas externos, third-party  |
+Un sistema de otro equipo u organización, al que accedemos mediante una interfaz y cuya estructura interna no controlamos, se representa como una **caja negra** en C1, C2, C3 y Deployment.
 
-### Agrupadores (Boundaries)
-
-Los agrupadores son constructos de visualización, no entidades de primera clase: su función es delimitar alcances (sistema, container, dominio, infraestructura). Visualmente se representan como rectángulos **sin relleno**, con borde sólido o discontinuo según el tipo.
-
-| Componente                  | Borde       | Icono          | Color (borde) | c4Type                       | Uso                                                                              |
-| --------------------------- | ----------- | -------------- | ------------- | ---------------------------- | -------------------------------------------------------------------------------- |
-| **Agrupador de Sistema**    | Discontinuo | stack          | `#666666`     | `SystemScopeBoundary`        | C2 — define el límite/alcance de un sistema mostrando sus containers internos    |
-| **Agrupador de Aplicación** | Discontinuo | stack          | `#666666`     | `ContainerScopeBoundary`     | C3 — define el límite/alcance de un container mostrando sus componentes internos |
-| **Agrupador**               | Sólido      | stack          | `#666666`     | `Boundary`                   | Multi-propósito: dominios, módulos, cloud, infraestructura                       |
-
-**Nombres recomendados:**
-
-- **System scope (C2)**: Identity System, Payment System, HR System
-- **Container scope (C3)**: Identity API, Payment Service, HR Worker
-- **Agrupación genérica**: Identity Domain, Payment Context, AWS us-east-1, Production EKS
-
-❌ **Evitar**: nombres genéricos o ambiguos como "Módulo 1", "Backend", "Servicios", "Otros"
-
-**Reglas:**
-
-- Etiqueta descriptiva que indique el propósito del agrupamiento.
-- NO anidar más de 2 niveles.
-- Usar inglés para consistencia con nombres técnicos.
-- **System scope**: muestra la frontera de un sistema con sus containers.
-- **Container scope**: muestra la frontera de un container con sus componentes.
-- **Boundary genérico**: para cualquier otra agrupación lógica o de infraestructura.
-
-### App (morado `#E1D5E7`)
-
-| Componente          | Shape                 | Icono        | Uso                                                                  |
-| ------------------- | --------------------- | ------------ | -------------------------------------------------------------------- |
-| **Web Application**     | Rectángulo redondeado | world-www     | Aplicación web                                                       |
-| **Mobile App**          | Rectángulo redondeado | device-mobile | Aplicación móvil                                                     |
-| **Desktop Application** | Rectángulo redondeado | device-desktop | Aplicación de escritorio (Electron, Tauri, .NET WPF, macOS/Windows native) |
-| **API**             | Rectángulo redondeado | arrows-left-right | API REST/gRPC                                                   |
-| **Microservice**    | Rectángulo redondeado | packages     | Microservicio                                                        |
-| **Worker**          | Rectángulo redondeado | loader       | Background worker                                                    |
-| **Batch**           | Rectángulo redondeado | clock        | Proceso batch/programado                                             |
-| **CDC Processor**   | Rectángulo redondeado | database-export | Procesador CDC (Change Data Capture)                              |
-| **API Gateway**     | Hexágono              | shield-half  | Gateway/Proxy de entrada                                             |
-| **Function**        | Rectángulo redondeado | cloud-code   | Función serverless (AWS Lambda, Azure Functions, GCP Cloud Functions) |
-| **Aplicación**      | Rectángulo redondeado | app-window   | Aplicación genérica (escape hatch para casos no cubiertos) — c4Technology=`ej. Tecnología` |
-
-### Store (coral `#F8CECC`)
-
-| Componente              | Shape               | Icono        | Uso                                                                                  |
-| ----------------------- | ------------------- | ------------ | ------------------------------------------------------------------------------------ |
-| **Relational Database** | Cilindro vertical   | database     | Base de datos relacional (PostgreSQL, Oracle, SQL Server)                            |
-| **NoSQL Database**      | Cilindro vertical   | file-database | Base de datos NoSQL (DynamoDB)                                                     |
-| **Cache**               | Cilindro vertical   | bolt         | Cache distribuido (Redis)                                                            |
-| **Event Bus**           | Cilindro horizontal | timeline-event-text | Bus de eventos pub/sub (Kafka, NATS, Pulsar)                                |
-| **Queue**               | Cilindro horizontal | list-numbers | Cola de mensajes (Point-to-Point)                                                    |
-| **Object Storage**      | Folder              | folder-open  | Almacenamiento de objetos (S3, File Server)                                          |
-| **Almacenamiento**      | Cilindro vertical   | server       | Almacenamiento genérico (no específico) — c4Technology=`ej. Tecnología`              |
-
-**Nota sobre patrones**: `Event Bus` implementa semántica pub/sub (varios consumers), `Queue` implementa point-to-point (un solo consumer). El resto de los Stores son neutrales respecto al patrón de acceso.
-
-### Componentes C3 (amarillo `#FFF2CC`)
-
-| Componente     | Shape                 | Icono       | Uso                                      |
-| -------------- | --------------------- | ----------- | ---------------------------------------- |
-| **Component**  | Rectángulo redondeado | box         | Componente genérico                      |
-| **Controller** | Rectángulo redondeado | arrows-split | Controller (MVC) - maneja requests      |
-| **Service**    | Rectángulo redondeado | settings    | Service - lógica de negocio              |
-| **Repository** | Rectángulo redondeado | database    | Repository - acceso a datos              |
-| **Adapter**    | Rectángulo redondeado | plug        | Adapter - integración con externos       |
-| **Client**     | Rectángulo redondeado | arrow-down    | Client - consume APIs de otros servicios |
-| **Publisher**  | Rectángulo redondeado | send        | Publisher - publica eventos              |
-| **Consumer**   | Rectángulo redondeado | inbox       | Consumer - consume eventos/mensajes      |
-| **Mapper**     | Rectángulo redondeado | replace     | Mapper - transformación de datos         |
-| **Validator**  | Rectángulo redondeado | check       | Validator - validación de datos          |
-
-### Reglas para External
-
-Las siguientes reglas consolidan el tratamiento de elementos externos (third-party) en cualquier contexto. Aplican a diagramas C1, C2, C3 y Deployment.
-
-**Color y shape:**
-
-| Tipo externo                | Shape                 | Icono       | Color     | Ejemplos                              |
-| --------------------------- | --------------------- | ----------- | --------- | ------------------------------------- |
-| **External App / SaaS**     | Rectángulo redondeado | cloud / app-window | `#DFDFDF` | Salesforce, Workday, Kong externo     |
-| **External Store (DB)**     | Cilindro vertical     | database    | `#DFDFDF` | RDS externo, Aurora, Cosmos externo   |
-| **External Store (Obj.)**   | Folder                | folder-open | `#DFDFDF` | S3 externo, Azure Blob                |
-| **External Store (Broker)** | Cilindro horizontal   | timeline-event-text | `#DFDFDF` | Confluent Cloud, Amazon MQ       |
-| **External System**         | Rectángulo redondeado | cloud       | `#DFDFDF` | Sistema genérico third-party          |
-| **External Person**         | Actor                 | user        | `#DFDFDF` | Cliente final, usuario externo        |
-
-**Reglas:**
-
-- El color gris (`#DFDFDF`) **sobrescribe** el color de categoría (ver §1).
-- El shape semántico se preserva (cilindro para DB, folder para object storage, cilindro horizontal para broker, etc.).
-- En diagramas de **Deployment** (ver §14), los recursos cloud gestionados externos usan el mismo shape semántico y pueden llevar estereotipo del proveedor (`<<RDS>>`, `<<S3>>`, etc.) para clarificar.
-- Los nombres externos deben identificar claramente al proveedor o sistema (ej. `AWS S3`, `Salesforce CRM`).
-
-### Leyenda
-
-La **Leyenda** es un meta-elemento opcional que explica la clave de colores y formas del diagrama. Se representa como un componente con `Title="Leyenda"`.
-
-| Componente | Shape | Icono | Color | Uso |
-| --- | --- | --- | --- | --- |
-| **Leyenda** | Meta-elemento | n/a | n/a | Explica la clave de colores/shapes del diagrama |
+- Usar `External System` (rectángulo redondeado gris `#DFDFDF`) y un nombre que identifique el sistema o proveedor, por ejemplo `Salesforce CRM` o `Identity Provider`.
+- Mostrar solo las relaciones observables desde nuestro sistema: propósito, protocolo y, cuando corresponda, contrato o endpoint. No inferir ni dibujar su aplicación, base de datos, broker o infraestructura interna.
+- Usar `External Person` (actor gris) para usuarios externos; una persona no es un sistema.
+- Un recurso gestionado por un proveedor cloud **dentro de nuestra arquitectura** conserva su categoría (`App` o `Store`) cuando nuestro equipo controla su configuración y ciclo de vida. Por ejemplo, nuestra instancia RDS es `Store`; una base de datos administrada por un tercero y visible solo mediante su API se muestra como `External System`.
 
 ---
 
@@ -187,39 +91,16 @@ La **Leyenda** es un meta-elemento opcional que explica la clave de colores y fo
 | **C3**     | Obligatorio | Opcional    |
 | **Deploy** | Obligatorio | Obligatorio |
 
-### Tipos de flechas disponibles
+### Relaciones disponibles
 
-| Tipo                | Línea             | Formato Etiqueta                                                  |
-| ------------------- | ----------------- | ----------------------------------------------------------------- |
-| **Relación**        | Sólida →          | `<Propósito>`<br>`[<Protocolo>]`                                  |
-| **Relación Simple** | Sólida →          | `<Propósito>`                                                     |
-| **HTTPS**           | Sólida →          | `<Propósito>`<br>`[HTTPS]`                                        |
-| **HTTP**            | Sólida →          | `<Propósito>`<br>`[HTTP]`                                         |
-| **SOAP**            | Sólida →          | `<Propósito>`<br>`[SOAP]`                                         |
-| **gRPC**            | Sólida →          | `<Propósito>`<br>`[gRPC]`                                         |
-| **Event**           | Discontinua - - → | `<Nombre evento (formato §10)>`<br>`<evt.payment.invoice.created>`<br>`[Kafka]` |
-| **Message**         | Discontinua - - → | `<Nombre mensaje>`<br>`[SQS]`                                     |
-| **CDC**             | Discontinua - - → | `Capturar cambios`<br>`[CDC]`                                     |
-| **Batch**           | Punteada · · · →  | `<Propósito proceso>`<br>`[Batch]`                                |
-| **File Transfer**   | Sólida →          | `Transferir archivo`<br>`[SFTP]`                                  |
-| **Database Access** | Sólida delgada →  | `<Propósito consulta>`<br>`[SQL]`                                 |
+| Plantilla | Uso | Etiqueta |
+| --- | --- | --- |
+| `Relationship` | Relación dirigida con propósito y tecnología/protocolo. | `<Propósito>` y `[<Protocolo o tecnología>]` |
+| `Simple Relationship` | Relación dirigida cuyo protocolo no es relevante para ese nivel. | `<Propósito>` |
 
-**Obligatorio:**
+Todas las relaciones deben tener propósito y dirección claros. En C2 y Deployment, usar `Relationship` e indicar protocolo o tecnología; en C1 y C3 puede usarse `Simple Relationship` cuando el detalle técnico no aporte valor. Para interacciones asíncronas o batch, adaptar el estilo de línea y explicarlo en la leyenda. No crear una plantilla distinta por cada protocolo.
 
-- Todas las flechas deben tener **Propósito** (texto descriptivo)
-- Protocolo obligatorio en **C2 y Deployment**, opcional en **C1 y C3**
-- Dirección clara de origen a destino
-
-**Prohibido:**
-
-- Flechas completamente vacías (sin propósito)
-- Flechas bidireccionales (usar dos flechas separadas)
-
-**Notas:**
-
-- Los nombres de eventos siguen la nomenclatura de §10 — prefijo `tipo.dominio.entidad.acción`.
-- `Message` se usa para flujos point-to-point (Queue como Store); `Event` para flujos pub/sub (Event Bus como Store).
-- `Database Access` se permite solo en diagramas C3 o diagramas de auditoría/explicación de queries. En C1/C2 la comunicación directa con Stores debe pasar por la API o servicio responsable.
+Una relación entre aplicaciones puede indicar `vía API Gateway` en la etiqueta cuando el gateway no es el foco del C2. Para mensajería, nombrar la cola o topic si se dibuja como elemento; si se omite, incluir el canal en la etiqueta. No representar un broker compartido como `Queue or Topic`.
 
 ---
 
@@ -364,7 +245,7 @@ La **Leyenda** es un meta-elemento opcional que explica la clave de colores y fo
 
 ### Estructura de Componentes
 
-**Todos los componentes siguen este formato estándar de 4 líneas (3 obligatorias + 1 opcional):**
+**Todos los elementos de la librería siguen este orden visual: nombre → categoría/tecnología → descripción. El estado es opcional y aparece al final:**
 
 ```
 Nombre del Componente
@@ -373,9 +254,9 @@ Descripción breve de responsabilidades.
 [Status: <estado>] <nota opcional: fecha/ADR/contexto>
 ```
 
-- **Línea 1**: Nombre descriptivo del componente
-- **Línea 2**: `[Categoría: Tecnología específica]`
-- **Línea 3**: Descripción de responsabilidades y propósito
+- **Línea 1**: Nombre descriptivo del elemento. La forma y el color identifican su categoría.
+- **Línea 2**: Categoría (`[Person]`, `[System]`, etc.) y tecnología real para `App` y `Store` (`[App: .NET 8]`, `[Store: PostgreSQL]`).
+- **Línea 3**: Descripción breve de responsabilidades y propósito.
 - **Línea 4 (opcional)**: Estado del elemento + nota contextual — solo si no es `Actual`
 
 **Categorías base (línea 2):**
@@ -388,12 +269,12 @@ Descripción breve de responsabilidades.
 - `[Store: tecnología]` - Base de datos, cache, queue, event bus, storage
 - `[Component]` o `[Component: tipo]` - Componentes C3
 
-**Regla importante**: La línea 2 debe especificar **tecnología real**, no tipo de componente.
+**Regla importante**: Para `App` y `Store`, la línea 2 debe especificar **tecnología real**, no repetir el tipo de componente. `Person`, `System` y sus variantes externas solo muestran la categoría. La forma y el color apoyan la lectura, pero no reemplazan ninguna de estas líneas.
 
 ✅ **Correcto**: `[App: .NET 8]`, `[App: Angular 17]`, `[Store: PostgreSQL]`
 ❌ **Incorrecto**: `[App: API]`, `[App: Service]`, `[Store: Database]`
 
-**Excepción (C3)**: Para componentes C3, el formato es `[Component: tipo]` donde "tipo" indica la responsabilidad (Controller, Service, Repository, etc.). La tecnología se hereda del container padre documentado en C2.
+**Excepción (C3)**: Para componentes C3, el formato es `[Component: tipo]` donde "tipo" indica la responsabilidad (Controller, Service, Repository, etc.). La tecnología se hereda del container padre documentado en C2. Usar la plantilla `Component` y nombrar su responsabilidad concreta.
 
 **Estados válidos (línea 4):**
 
@@ -453,9 +334,9 @@ Servicio de autenticación heredado, reemplazado por Identity V2.
 
 - **Rectángulo redondeado**: APIs, servicios, workers, apps
 - **Cilindro vertical**: Bases de datos, cache
-- **Cilindro horizontal**: Message bus, colas, event bus
+- **Cilindro horizontal**: Cola o topic concreto; el broker compartido pertenece al Deployment
 - **Folder**: Object storage, file storage
-- **Hexágono**: API Gateway, Reverse Proxy
+- **Navegador**: Aplicación web cuando su interfaz es relevante
 - **Boundary**: Agrupación de sistemas o módulos (sin relleno)
 
 ### Estilos
@@ -501,10 +382,8 @@ Notas:
 
 ### Iconografía
 
-- **Icono**: Monocromático (gris o color del elemento)
-- **Tamaño**: 18-20px
-- **C1/C2**: Iconos genéricos (database, api, user)
-- **Deployment**: Iconos tecnológicos (AWS, Azure) solo si es necesario
+- La librería C4 básica usa forma, color y texto; no requiere iconos adicionales dentro de cada elemento.
+- En Deployment pueden usarse iconos oficiales de infraestructura cuando aclaren un recurso concreto; explicar su significado en la leyenda.
 
 ---
 
@@ -644,7 +523,7 @@ AWS > Production > EKS > Cluster > Identity Namespace > Identity System
 
 ❌ Cubo o rectángulo para una base de datos.
 
-✅ Cilindro vertical para DB relacional/NoSQL, cilindro horizontal para Event Bus/Queue.
+✅ Cilindro vertical para una base de datos o caché; cilindro horizontal para una cola o topic concreto.
 
 ### Tag de estado en lugar incorrecto
 
@@ -781,13 +660,13 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 ### Workflow de Exportación Automática
 
-El export manual de `.drawio` → `.png` se desactualiza fácilmente. Se usa un **workflow compartido** para automatizar la exportación de PNGs por cada PR que modifica un archivo `.drawio`.
+El export manual de `.drawio` → `.png` se desactualiza fácilmente. Se ha especificado un **workflow compartido** para automatizar la exportación de PNGs por cada PR que modifica un archivo `.drawio`; todavía no está implementado. Hasta que esté disponible, exportar el PNG manualmente desde Draw.io y adjuntarlo al mismo PR que el `.drawio`.
 
 **Repositorio compartido**: `tlm-org/diagram-export-workflow` (pendiente de crear — el equipo de Arquitectura confirmará el path antes de habilitar la adopción por equipos)
 
-**Adopción**: Cada equipo opta por usar el workflow referenciándolo en su `.github/workflows/`.
+**Adopción futura**: Cada equipo podrá usar el workflow referenciándolo en su `.github/workflows/` una vez implementado y validado.
 
-**Trigger**:
+**Contrato previsto — Trigger**:
 
 ```yaml
 on:
@@ -798,7 +677,7 @@ on:
 
 **Permisos**: `contents: write`
 
-**Comportamiento**:
+**Comportamiento previsto**:
 
 1. Por cada pestaña del `.drawio` que matchee el patrón de §16, se exporta un PNG
 2. Las pestañas que **no** matcheen el patrón (§16) se ignoran silenciosamente
@@ -808,7 +687,7 @@ on:
 
 **Checklist PR** (nuevo item):
 
-- [ ] Si se modificó un `.drawio`, ¿el workflow generó/actualizó el `.png` en este PR?
+- [ ] Si se modificó un `.drawio`, ¿se generó/actualizó el `.png` en este PR (manualmente hasta disponer del workflow)?
 
 ---
 
@@ -876,7 +755,7 @@ El ciclo de vida de un diagrama sigue cinco fases. Cada fase tiene criterios de 
 
 **Nota**: Para Databases, Object Storage y Message Brokers, usar los componentes **Store** definidos en §2.
 
-**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores/pods propios. Solo cambian a color de infraestructura cuando son recursos cloud gestionados.
+**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores/pods propios. El color de infraestructura se reserva para recursos de cómputo como VM/EC2.
 
 **Aplicación:**
 
@@ -924,7 +803,7 @@ Pod → Kafka: TCP:9092
 
 ## 📚 15. DOCUMENTACIÓN DE REFERENCIA
 
-- [Validation Criteria](./reference/validation-criteria.md) - Checklists para PR y auditorías
+- [Validation Criteria](./reference/VALIDATION-CRITERIA.md) - Checklists para PR y auditorías
 - [Best Practices](./reference/c4-best-practices.md) - Principios y anti-patrones
 - [Cheat Sheet](./reference/cheat-sheet.md) - Referencia rápida de una página
 - [Contribution Guide](./reference/contribution-guide.md) - Cómo proponer cambios al estándar
@@ -935,7 +814,7 @@ Pod → Kafka: TCP:9092
 
 ### Propósito
 
-El workflow de CI/CD (ver §12) necesita identificar automáticamente qué pestañas de un archivo `.drawio` representan diagramas exportables. Esta convención define el patrón que el workflow usa para distinguir pestañas exportables de borradores y notas.
+El futuro workflow de CI/CD (ver §12) necesitará identificar automáticamente qué pestañas de un archivo `.drawio` representan diagramas exportables. Esta convención define el patrón que el workflow usa para distinguir pestañas exportables de borradores y notas.
 
 ### Patrón de nombres
 
@@ -961,7 +840,7 @@ El workflow de CI/CD (ver §12) necesita identificar automáticamente qué pesta
 - `Payment - Wireframe` — `Wireframe` no es un Tipo permitido
 - `Identity - C2` — `C2` no es un Tipo válido (usar `Container`)
 
-### Comportamiento del workflow
+### Comportamiento previsto del workflow
 
 Pestañas que **no** matchean el patrón son **ignoradas silenciosamente** — sin warning, sin error, sin PNG generado. Pestañas `borrador`, `WIP`, `WIP - Context`, etc. deben crearse como pestañas **no exportables** en Draw.io.
 
@@ -980,7 +859,7 @@ Términos clave usados en este estándar.
 - **Container**: Aplicación o Store que forma parte de un System. Unidad desplegable o proceso runtime.
 - **C4 model**: Marco de modelado de arquitectura en 4 niveles (Context, Container, Component, Code). Este estándar no cubre C4 (Code).
 - **Diagram Type**: Clasificación del diagrama (Context, Container, Deployment, Sequence, etc.). Ver §11.
-- **External**: Atributo de un elemento que indica que es third-party o está fuera del alcance de nuestro sistema. Color gris.
+- **External**: Sistema o persona fuera del alcance y control de nuestro equipo. El sistema se representa como caja negra gris; sus componentes internos no se muestran.
 - **Person**: Actor humano en el sistema. Interno (verde) o externo (gris).
 - **Scope**: Sinónimo de Boundary orientado a C4 (SystemScopeBoundary, ContainerScopeBoundary).
 - **Store**: Container de persistencia (DB, queue, cache, storage). Color: coral.

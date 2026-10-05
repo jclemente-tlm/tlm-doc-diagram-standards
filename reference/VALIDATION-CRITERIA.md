@@ -22,7 +22,7 @@ Checklists esenciales para validación rápida durante creación, PR review y au
 - [ ] Todos los containers: APIs, servicios, workers, frontends
 - [ ] Todos los stores: DBs, message buses, queues, storage
 - [ ] Separación visual: Apps (morado), Stores (coral), Externos (gris)
-- [ ] Shapes correctos: Cilindro=DB, Folder=storage, Hexágono=Gateway
+- [ ] Shapes correctos: Cilindro=DB, Folder=storage, gateway identificado por nombre
 - [ ] Protocolos en todas las conexiones (HTTPS, Kafka, SQL)
 - [ ] Líneas: Sólida (sync), Dashed (async), Dotted (batch)
 - [ ] Máximo 20 elementos
@@ -74,7 +74,7 @@ Checklists esenciales para validación rápida durante creación, PR review y au
 - [ ] Cilindro vertical: DBs, cache
 - [ ] Cilindro horizontal: Message buses, colas
 - [ ] Folder: Object storage
-- [ ] Hexágono: API Gateway
+- [ ] API Gateway: usar `Application` y nombrarlo como gateway cuando deba verse en C2
 - [ ] Actor shape: Usuarios
 
 ### Flechas
@@ -92,7 +92,7 @@ Checklists esenciales para validación rápida durante creación, PR review y au
 - [ ] Singular: "User Service" no "Users Service"
 - [ ] Sin abreviaciones: No "svc", "proc", "mgr"
 - [ ] Formato: `dominio-db`, `tipo.dominio.entidad.accion` (Kafka)
-- [ ] **Pestañas exportables**: nombres siguen `[Nombre] - [Tipo]` (ver [§15](../STANDARDS.md#-15-convención-de-pestañas))
+- [ ] **Pestañas exportables**: nombres siguen `[Nombre] - [Tipo]` (ver [§16](../STANDARDS.md#-16-convención-de-pestañas))
 
 ---
 
@@ -107,10 +107,11 @@ Copiar en el PR:
 - [ ] Colores según paleta corporativa
 - [ ] Shapes correctos por tipo
 - [ ] Nomenclatura consistente
+- [ ] Elementos en orden nombre → categoría/tecnología → descripción, con forma y color según la librería
 - [ ] Metadata actualizada (versión, fecha, owner)
 - [ ] Todas las flechas etiquetadas
 - [ ] Límites de elementos respetados (C1≤10, C2≤20, C3≤12)
-- [ ] Si se modificó un `.drawio`, ¿el workflow generó/actualizó el `.png` en este PR?
+- [ ] Si se modificó un `.drawio`, ¿se generó/actualizó el `.png` en este PR (manualmente hasta disponer del workflow)?
 - [ ] Diagramas en Git (`.drawio`)
 ```
 
