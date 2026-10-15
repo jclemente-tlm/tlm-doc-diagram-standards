@@ -82,7 +82,7 @@ Checklists esenciales para validación rápida durante creación, PR review y au
 - [ ] Sólida: Sync (HTTP, gRPC)
 - [ ] Dashed: Async (Events, messages)
 - [ ] Dotted: Batch
-- [ ] Todas etiquetadas: Protocolo + propósito
+- [ ] Todas etiquetadas con propósito; protocolo o tecnología obligatorio en C2 y Deployment, opcional en C1 y C3 cuando no aporte valor
 - [ ] Dirección clara
 
 ### Nomenclatura

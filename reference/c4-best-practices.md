@@ -36,7 +36,7 @@ Principios fundamentales, anti-patrones y recomendaciones para crear diagramas e
 
 ### 1. Diagrama Spaghetti
 
-**Problema**: Todo conectado con todo, flechas cruzadas, >30 elementos.
+**Problema**: Todo conectado con todo, flechas cruzadas o exceso de elementos. El tope general es 25; superarlo requiere justificación en el README del diagrama y aprobación de Architecture.
 
 **Solución**:
 - Dividir en múltiples diagramas

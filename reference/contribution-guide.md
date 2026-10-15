@@ -56,7 +56,7 @@ Los cambios de color o shape **requieren discusión previa** en `#architecture` 
 
 ## Versioning Policy
 
-**No se usa semver en este repositorio.**
+Los cambios del **repositorio de estándares** se identifican con la versión y fecha indicadas en `STANDARDS.md`; no se publican como releases SemVer. La versión de **cada diagrama** es independiente y sigue el formato `MAJOR.MINOR` definido en `STANDARDS.md` §7.
 
 Los cambios se trackean por:
 
@@ -64,7 +64,7 @@ Los cambios se trackean por:
 - **PR description** para cambios grandes
 - **Issue tracker** para discusión previa
 
-No hay release tags ni changelog formal. La fecha de `STANDARDS.md` es la versión implícita.
+No hay release tags. El historial y la cabecera de `STANDARDS.md` identifican la versión vigente del estándar.
 
 ---
 

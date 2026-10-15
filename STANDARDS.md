@@ -10,7 +10,7 @@
 | Versión | Fecha       | Autor            | Cambios principales                                                                                       |
 |---------|-------------|------------------|-----------------------------------------------------------------------------------------------------------|
 | 2.0     | 2026-06-22  | Architecture Team | Revisión completa: 4 secciones nuevas, paleta ampliada, separación de agrupadores, sistema de tags de estado, glosario, anti-patrones y ejemplos end-to-end |
-| 1.1     | 2026-06-21  | Architecture Team | Workflow CI export, convención de pestañas                                                                 |
+| 1.1     | 2026-06-21  | Architecture Team | Especificación del futuro workflow de exportación, convención de pestañas                                                                 |
 | 1.0     | anterior a 2026-06 | Architecture Team | Versión inicial                                                                                     |
 
 ---
@@ -411,11 +411,11 @@ Notas:
 ## ✅ 7. CHECKLIST DE VALIDACIÓN
 
 1. [ ] **Título claro** - Nombre del sistema + tipo de diagrama
-2. [ ] **Metadata** - Fecha (ISO 8601: `YYYY-MM-DD`), versión (SemVer), owner (equipo responsable)
+2. [ ] **Metadata** - Fecha (ISO 8601: `YYYY-MM-DD`), versión del diagrama (`MAJOR.MINOR`), owner (equipo responsable)
 3. [ ] **Colores correctos** - Según tabla corporativa (§1)
 4. [ ] **Shapes correctos** - Cilindro para DB, folder para storage
 5. [ ] **Estructura de componentes** - `[Tipo: Tecnología]` en todos los elementos; línea 4 con `[Status: ...]` si no es Actual
-6. [ ] **TODAS las flechas etiquetadas** - Protocolo + propósito
+6. [ ] **TODAS las flechas etiquetadas** - Propósito en todas; protocolo o tecnología en C2 y Deployment (§3)
 7. [ ] **Nombres descriptivos** - NO "Service 1", "API", "DB"
 8. [ ] **Nivel correcto** - C1 sin internos, C2 sin componentes
 9. [ ] **Límite de elementos** - Cumple los límites por nivel definidos en §4 (tope absoluto en §8)
@@ -426,7 +426,7 @@ Notas:
 **Formato de metadata:**
 
 - **Fecha**: `YYYY-MM-DD` (ISO 8601)
-- **Versión**: SemVer (`MAJOR.MINOR`)
+- **Versión del diagrama**: `MAJOR.MINOR` (independiente de la versión del estándar)
 - **Owner**: Equipo responsable (ej. `Team: Identity Platform`)
 - **Ubicación**: archivo README junto al `.drawio` + footer en el PNG exportado
 
@@ -700,13 +700,14 @@ El ciclo de vida de un diagrama sigue cinco fases. Cada fase tiene criterios de 
 - Crear pestaña siguiendo convención §16 (ej. `Identity - Container`).
 - Aplicar paleta (§1) y componentes estándar (§2).
 - Etiquetar todos los elementos y flechas (§3).
-- Versionar como `0.1-draft` en el archivo README asociado.
+- Registrar versión `0.1` y estado `Draft` en el README asociado al diagrama.
 - Estado: **borrador**, no apto para revisión arquitectónica.
 
 ### 2. Review
 
 - Self-review con checklist (§7).
 - Verificar límites por nivel (§4) y anti-patrones (§9).
+- Exportar manualmente el PNG desde Draw.io y adjuntarlo junto al `.drawio` en el mismo PR (§12).
 - PR al repositorio del equipo con tag `diagram-review`.
 - Owners de los sistemas representados deben validar que el contenido refleja la realidad.
 
@@ -719,15 +720,14 @@ El ciclo de vida de un diagrama sigue cinco fases. Cada fase tiene criterios de 
 
 ### 4. Approved
 
-- Merge del PR.
-- Bump de versión a `1.0` (o siguiente SemVer si es una revisión mayor).
-- Workflow CI (§12) exporta PNG automáticamente.
+- Registrar la versión aprobada del diagrama (`1.0` para la primera aprobación) en su README y en la metadata visible.
+- Actualizar el `.drawio` con la versión aprobada, volver a exportar el PNG manualmente y verificar que ambos están en el mismo PR antes del merge.
+- Obtener la aprobación y hacer merge del PR.
 - Tag en repo: `diagram-v1.0` (opcional).
 
 ### 5. Published
 
-- PNG committeado en el mismo branch del PR (nunca a `main` directo).
-- Link en README del sistema o en el ADR asociado.
+- Enlazar el diagrama y su PNG desde el README del sistema o el ADR asociado.
 - Comunicar a stakeholders vía Slack `#architecture`.
 
 ### Roles y Responsabilidades

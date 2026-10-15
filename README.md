@@ -75,7 +75,7 @@ La [copia anterior de 64 entradas](./drawio-library/archive/TLM%20-%20Librería%
 
 ---
 
-**Ejemplo de referencia:** [Identity System - Container](./examples/identity-container.drawio) usa formas C4 básicas y muestra título, metadata, componentes y conexiones etiquetadas.
+**Ejemplos de referencia:** [tres escenarios ficticios de carga y rampa](./examples/README.md), cada uno con C1, C2, C3 y Deployment. El [Identity System - Container](./examples/identity-container.drawio) se conserva como ejemplo técnico independiente. Todos los ejemplos son ilustrativos y no representan sistemas actuales de la empresa.
 
 ## 📚 Documentación de Referencia
 
@@ -173,7 +173,7 @@ Antes de commitear:
 
 ✅ Obligatorio | ⚠️ Solo si es complejo | - No necesario
 
-Ver detalles en [STANDARDS.md - Sección 10](./STANDARDS.md#-10-diagramas-obligatorios)
+Ver detalles en [STANDARDS.md - Sección 11](./STANDARDS.md#-11-tipos-de-diagramas).
 
 ---
 
@@ -215,7 +215,7 @@ Ver reglas completas en [STANDARDS.md - Sección 5](./STANDARDS.md#-5-reglas-vis
 
 ## 🔥 Prohibiciones
 
-❌ **Diagrama Spaghetti** - Más de 30 elementos, líneas cruzadas
+❌ **Diagrama Spaghetti** - Exceso de elementos o líneas cruzadas; el tope general es 25 elementos, salvo excepción documentada y aprobada
 ❌ **PowerPoint Architecture** - Colores y formas aleatorias
 ❌ **Frankenstein** - Mezclar C1 + C2 + Deployment en uno
 ❌ **Ghost Diagram** - Sin owner, desactualizado hace 2 años

@@ -69,7 +69,7 @@ Referencia rápida para crear y validar diagramas C4. Ver [STANDARDS.md](../STAN
 2. [ ] **Colores** — Según paleta corporativa
 3. [ ] **Shapes** — Cilindro vertical = base de datos, horizontal = cola/topic, folder = object storage
 4. [ ] **Elementos** — Orden: nombre → categoría/tecnología → descripción; tecnología real para App y Store
-5. [ ] **Flechas etiquetadas** — Protocolo + propósito en todas
+5. [ ] **Flechas etiquetadas** — Propósito en todas; protocolo o tecnología en C2 y Deployment, opcional en C1 y C3
 
 ---
 

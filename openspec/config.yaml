@@ -12,7 +12,7 @@
 
 - **tool**: Draw.io
 - **diagram_model**: C4 (Context, Container, Component, Deployment)
-- **library**: TLM - Librería C4.xml (46 elements)
+- **library**: TLM - Librería C4.xml (15 plantillas: 10 elementos, 2 relaciones, 2 agrupadores y 1 leyenda)
 - **formats**: .drawio (versioned), .png (export)
 
 ## Conventions
@@ -34,7 +34,8 @@
 - Cilindro vertical: DBs, cache
 - Cilindro horizontal: Message bus, colas
 - Folder: Object storage
-- Hexágono: API Gateway
+- API Gateway en C2: usar `Application` y nombrarlo como gateway cuando sea necesario mostrarlo
+- Hexágono: Load Balancer en Deployment cuando corresponda
 
 ### Structure
 
@@ -53,7 +54,7 @@ Descripción breve.
 
 ## Testing
 
-**Status**: N/A — documentation-only project, no code to test
+**Status**: Proyecto documental; validar manualmente con `STANDARDS.md` §7 y comprobar enlaces y formato Draw.io cuando cambien esos archivos
 
 ## Diagram Types
 
