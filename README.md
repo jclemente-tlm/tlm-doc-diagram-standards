@@ -2,6 +2,8 @@
 
 > **Documentación compacta y práctica** para crear diagramas corporativos de arquitectura
 
+El [stack tecnológico vigente](./TECH-STACK.md) registra tecnologías adoptadas, en evaluación, restringidas, heredadas y no adoptadas. Úsalo al elegir tecnologías para diagramas de sistemas reales.
+
 ---
 
 ## 🚀 START HERE
@@ -75,7 +77,7 @@ La [copia anterior de 64 entradas](./drawio-library/archive/TLM%20-%20Librería%
 
 ---
 
-**Ejemplos de referencia:** [tres escenarios ficticios de carga y rampa](./examples/README.md), cada uno con C1, C2, C3 y Deployment. El [Identity System - Container](./examples/identity-container.drawio) se conserva como ejemplo técnico independiente. Todos los ejemplos son ilustrativos y no representan sistemas actuales de la empresa.
+**Ejemplos de referencia:** [tres proyectos ficticios de atención en tierra, carga de importación y cadena de frío](./examples/README.md), cada uno con C1, C2, C3 y Deployment. El [Identity System - Container](./examples/identity-container.drawio) se conserva como ejemplo técnico independiente. Los proyectos y sus flujos son ilustrativos; las plataformas corporativas compartidas mencionadas existen, pero estas integraciones no documentan soluciones implantadas.
 
 ## 📚 Documentación de Referencia
 
@@ -98,6 +100,7 @@ La documentación detallada está en [\`/reference/\`](./reference/):
 /tlm-doc-diagram-standards
 ├── README.md                    # Este archivo - punto de entrada
 ├── STANDARDS.md                 # ⭐ Documento principal de estándares
+├── TECH-STACK.md                # Catálogo tecnológico vigente
 │
 ├── /drawio-library              # Librería corporativa Draw.io
 │   ├── TLM - Librería C4.xml    # 15 plantillas básicas
@@ -191,7 +194,7 @@ Descripción breve de responsabilidades.
 
 ```
 Identity API
-[App: .NET 8 REST API]
+[App: .NET 10 REST API]
 Gestiona autenticación y autorización.
 ```
 

@@ -101,6 +101,8 @@ Principios fundamentales, anti-patrones y recomendaciones para crear diagramas e
 
 ### CDC (Change Data Capture)
 
+Ejemplo de **propuesta en evaluación**: Debezium y Kafka no están adoptados en el [stack vigente](../TECH-STACK.md).
+
 ```
 [Oracle DB] --CDC (Debezium)--> [user.changes (topic)] --"user.changes"--> [Service]
 ```

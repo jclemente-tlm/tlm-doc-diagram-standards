@@ -85,7 +85,7 @@ El archivo `drawio-library/TLM - Librería C4.xml` contiene componentes en forma
 {
   "c4Name": "Nombre del componente",
   "c4Type": "App",
-  "c4Technology": "ej. Node.js",
+  "c4Technology": "ej. ASP.NET Core 10",
   "c4Description": "Descripción breve",
   "shape": "...",
   "fillColor": "#E1D5E7"

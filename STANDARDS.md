@@ -1,7 +1,9 @@
 # Estándares de Diagramas de Arquitectura
 
-**Última actualización**: 2026-10-05
-**Versión**: 2.0
+**Última actualización**: 2026-10-15
+**Versión**: 2.1
+
+Las tecnologías de diagramas de sistemas reales deben corresponder al [stack tecnológico vigente](./TECH-STACK.md) y al alcance registrado para cada una. Los ejemplos de este documento son ficticios.
 
 ---
 
@@ -9,6 +11,7 @@
 
 | Versión | Fecha       | Autor            | Cambios principales                                                                                       |
 |---------|-------------|------------------|-----------------------------------------------------------------------------------------------------------|
+| 2.1     | 2026-10-15  | Architecture Team | Alineación con catálogo tecnológico vigente, ECS Fargate y ejemplos C4 coherentes |
 | 2.0     | 2026-06-22  | Architecture Team | Revisión completa: 4 secciones nuevas, paleta ampliada, separación de agrupadores, sistema de tags de estado, glosario, anti-patrones y ejemplos end-to-end |
 | 1.1     | 2026-06-21  | Architecture Team | Especificación del futuro workflow de exportación, convención de pestañas                                                                 |
 | 1.0     | anterior a 2026-06 | Architecture Team | Versión inicial                                                                                     |
@@ -31,7 +34,7 @@
 
 **Regla para sistemas externos**: Los sistemas fuera de nuestro control se representan como `External System` (rectángulo redondeado gris `#DFDFDF`). Son cajas negras: no se dibujan sus aplicaciones, bases de datos, colas ni otros componentes internos. Un servicio cloud gestionado que pertenece a nuestra arquitectura y cuyos recursos configuramos sí se representa dentro de nuestro sistema con su categoría correspondiente (por ejemplo, `Store` para nuestra base de datos gestionada).
 
-**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores/pods propios. El color de infraestructura se reserva para recursos de cómputo como VM/EC2 (ver §14).
+**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores o tareas ECS propias. El color de infraestructura se reserva para recursos de cómputo como VM/EC2 (ver §14).
 
 ### Accesibilidad
 
@@ -132,7 +135,7 @@ Una relación entre aplicaciones puede indicar `vía API Gateway` en la etiqueta
 **Incluir:**
 
 - ✅ Todos los containers del sistema (Apps y Stores)
-- ✅ Tecnologías principales (.NET, PostgreSQL, Kafka)
+- ✅ Tecnologías principales según el stack vigente (.NET, PostgreSQL; mensajería cuando aplique)
 - ✅ Relaciones entre containers
 - ✅ Sistemas externos relevantes
 
@@ -255,7 +258,7 @@ Descripción breve de responsabilidades.
 ```
 
 - **Línea 1**: Nombre descriptivo del elemento. La forma y el color identifican su categoría.
-- **Línea 2**: Categoría (`[Person]`, `[System]`, etc.) y tecnología real para `App` y `Store` (`[App: .NET 8]`, `[Store: PostgreSQL]`).
+- **Línea 2**: Categoría (`[Person]`, `[System]`, etc.) y tecnología real para `App` y `Store` (`[App: .NET 10]`, `[Store: PostgreSQL]`).
 - **Línea 3**: Descripción breve de responsabilidades y propósito.
 - **Línea 4 (opcional)**: Estado del elemento + nota contextual — solo si no es `Actual`
 
@@ -271,7 +274,7 @@ Descripción breve de responsabilidades.
 
 **Regla importante**: Para `App` y `Store`, la línea 2 debe especificar **tecnología real**, no repetir el tipo de componente. `Person`, `System` y sus variantes externas solo muestran la categoría. La forma y el color apoyan la lectura, pero no reemplazan ninguna de estas líneas.
 
-✅ **Correcto**: `[App: .NET 8]`, `[App: Angular 17]`, `[Store: PostgreSQL]`
+✅ **Correcto**: `[App: .NET 10]`, `[App: Angular 17]`, `[Store: PostgreSQL]`
 ❌ **Incorrecto**: `[App: API]`, `[App: Service]`, `[Store: Database]`
 
 **Excepción (C3)**: Para componentes C3, el formato es `[Component: tipo]` donde "tipo" indica la responsabilidad (Controller, Service, Repository, etc.). La tecnología se hereda del container padre documentado en C2. Usar la plantilla `Component` y nombrar su responsabilidad concreta.
@@ -294,7 +297,7 @@ Notas:
 
 ```
 Identity API
-[App: .NET 8 REST API]
+[App: .NET 10 REST API]
 Gestiona autenticación, autorización y emisión de tokens.
 ```
 
@@ -489,23 +492,23 @@ Identity - Container
 
 ❌ `[App: Service]`, `[App: API]`, `[Store: Database]`.
 
-✅ `[App: .NET 8 REST API]`, `[App: Node.js 20 gRPC]`, `[Store: PostgreSQL 15]`.
+✅ `[App: ASP.NET Core 10]`, `[App: Angular]`, `[Store: PostgreSQL]`.
 
 ### Boundary mal nombrado
 
 ❌ "Módulo 1", "Backend", "Servicios", "Otros".
 
-✅ "Identity Domain", "Payment Context", "AWS us-east-1", "Production EKS".
+✅ "Identity Domain", "Payment Context", "AWS us-east-1", "Production ECS".
 
 ### Boundaries sobre-anidados
 
 ❌ Más de 2 niveles de boundaries anidados (dificulta lectura).
 
 ```
-AWS > Production > EKS > Cluster > Identity Namespace > Identity System
+AWS > Production > ECS > Service > Task > Identity System
 ```
 
-✅ Máximo 2 niveles: ej. `AWS us-east-1 > Production EKS > Identity System`.
+✅ Máximo 2 niveles: ej. `AWS us-east-1 > Production ECS > Identity System`.
 
 ### C2 con componentes
 
@@ -562,13 +565,13 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 
 | Patrón            | Formato         | Ejemplo       | Tipo                |
 | ----------------- | --------------- | ------------- | ------------------- |
-| **BFF**           | `[Dominio] BFF` | Checkout BFF  | `[App: Node.js]`    |
-| **Microfrontend** | `[Dominio] MFE` | Billing MFE   | `[App: React 18]`   |
-| **SSR Web**       | `[Dominio] Web` | Marketing Web | `[App: Next.js 14]` o `[App: Angular 17 SSR]` |
+| **BFF**           | `[Dominio] BFF` | Checkout BFF  | `[App: ASP.NET Core 10]` |
+| **Microfrontend** | `[Dominio] MFE` | Billing MFE   | `[App: Angular]` |
+| **SSR Web**       | `[Dominio] Web` | Marketing Web | `[App: Angular SSR]` |
 
 ❌ **Evitar**: `bff-checkout-svc`, `mfe-billing-frontend`, `webapp-1`
 
-**Nota**: El campo tecnología captura el stack real del equipo (Next.js, Angular SSR, Nuxt, Remix). El framework SSR ya implica React/Vue subyacente; no duplicar. No se añaden nuevos componentes a la librería oficial. BFF/MFE/SSR usan los mismos componentes `App` estándar. El ejemplo `[App: Next.js 14]` es ilustrativo — cualquier framework SSR válido se acepta como `[App: <framework> <versión>]`.
+**Nota**: El campo tecnología captura la tecnología real del equipo. No se añaden nuevos componentes a la librería oficial: BFF, MFE y SSR usan las plantillas `App` existentes. En sistemas reales, elegir una tecnología conforme al [stack vigente](./TECH-STACK.md); React requiere evaluación arquitectónica previa.
 
 ### Bases de Datos
 
@@ -583,6 +586,8 @@ Para arquitecturas frontend complejas, aplicar el mismo estándar con el sufijo 
 ❌ **Evitar**: redis, cache1, temp-storage
 
 ### Eventos Kafka
+
+Kafka está **en evaluación** en el [stack vigente](./TECH-STACK.md); esta convención de nombres no autoriza su uso en nuevos despliegues.
 
 ✅ **Formato**: `[tipo].[dominio].[entidad].[acción]`
 ✅ **Ejemplos**: `cdc.hr.employee.changed`, `evt.payment.invoice.created`, `cmd.notification.email.send`
@@ -749,20 +754,20 @@ El ciclo de vida de un diagrama sigue cinco fases. Cada fase tiene criterios de 
 
 | Elemento          | Shape                 | Color     | Uso                             |
 | ----------------- | --------------------- | --------- | ------------------------------- |
-| **Pod/Container** | Rectángulo redondeado | `#E1D5E7` | Contenedor individual           |
+| **ECS Task/Container** | Rectángulo redondeado | `#E1D5E7` | Tarea o contenedor individual en ECS Fargate. |
 | **VM/EC2**        | Rectángulo            | `#E8EAF6` | Máquina virtual                 |
 | **Load Balancer** | Hexágono              | `#E1D5E7` | Balanceador de carga (ALB, NLB). Color: morado App (categoría App — API Gateway managed). |
 
 **Nota**: Para Databases, Object Storage y Message Brokers, usar los componentes **Store** definidos en §2.
 
-**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores/pods propios. El color de infraestructura se reserva para recursos de cómputo como VM/EC2.
+**Regla de color en Deployment**: Los componentes mantienen su color de **categoría lógica** cuando se despliegan como contenedores o tareas ECS propias. El color de infraestructura se reserva para recursos de cómputo como VM/EC2.
 
 **Aplicación:**
 
-- Kong/API Gateway (pod propio) → **morado** (es App)
+- Kong/API Gateway (contenedor propio) → **morado** (es App)
 - AWS ALB / NLB (gestionado) → **morado** (es API Gateway managed, no infraestructura de red)
-- Debezium CDC (pod propio) → **morado** (es App)
-- AWS RDS (gestionado) → **coral** (es Store)
+- Debezium CDC (contenedor propio, si se aprueba su adopción) → **morado** (es App)
+- PostgreSQL (alojamiento verificado, gestionado o propio) → **coral** (es Store)
 
 ### Reglas de Deployment
 
@@ -776,11 +781,11 @@ El ciclo de vida de un diagrama sigue cinco fases. Cada fase tiene criterios de 
 
 | Tipo              | Estereotipo           | Ejemplo                        |
 | ----------------- | --------------------- | ------------------------------ |
-| **Pod**           | `<<Pod>>`             | `<<Pod>>` identity-api (x3)    |
+| **ECS Task**      | `<<ECS Task>>`        | `<<ECS Task>>` identity-api (x3) |
 | **VM**            | `<<EC2>>` o `<<VM>>`  | `<<EC2>>` Bastion Host         |
 | **Load Balancer** | `<<ALB>>` o `<<NLB>>` | `<<ALB>>` Public Load Balancer |
 
-**Nota**: Para Databases (RDS, DynamoDB), usar componentes **Store** con estereotipo cloud opcional: `<<RDS>>`, `<<DynamoDB>>`, etc.
+**Nota**: Usar componentes **Store** para bases de datos. Añadir `<<RDS>>` u otro estereotipo cloud solo cuando el alojamiento real esté verificado. DynamoDB tiene uso restringido según el [stack vigente](./TECH-STACK.md).
 
 ### Información Requerida
 
@@ -794,9 +799,8 @@ El ciclo de vida de un diagrama sigue cinco fases. Cada fase tiene criterios de 
 ### Ejemplo de Etiquetado
 
 ```
-Load Balancer → Pod: HTTPS:443
-Pod → RDS: PostgreSQL:5432
-Pod → Kafka: TCP:9092
+Load Balancer → ECS Task: HTTPS:443
+ECS Task → PostgreSQL: TCP:5432
 ```
 
 ---
@@ -870,168 +874,63 @@ Términos clave usados en este estándar.
 
 ## 📋 18. EJEMPLOS END-TO-END
 
-Ejemplos mínimos de cada nivel, siguiendo el estándar completo.
+Ejemplos ficticios de cada nivel con tecnologías adoptadas del [stack vigente](./TECH-STACK.md). La topología y las réplicas ilustran la notación; no describen un entorno existente.
 
-### Ejemplo C1 — Context Diagram (Identity System)
+### Ejemplo C1 — Identity System (Context)
 
-**Elementos (5):**
+**4 elementos:** Usuario Final, Identity System, Google OAuth y SMTP Provider. Las relaciones tienen propósito: el usuario inicia sesión, Identity System delega acceso social a Google OAuth y envía correos mediante SMTP Provider. Identity System aparece como una sola caja negra.
 
-- 1 Person: Usuario Final
-- 1 System: Identity System (nuestra caja negra)
-- 1 External System: Google OAuth
-- 1 External System: SMTP Provider
+### Ejemplo C2 — Identity System (Container)
 
-**Layout sugerido:**
+**3 contenedores internos:** Identity Web (Angular), Identity API (ASP.NET Core 10) e identity-db (PostgreSQL). Google OAuth y SMTP Provider son sistemas externos. La boundary del sistema no cuenta como contenedor.
 
-```
-┌─────────────────┐
-│ Usuario Final   │
-└────────┬────────┘
-         │ login
-         ▼
-┌─────────────────┐      OAuth      ┌──────────────┐
-│ Identity System │ ───────────────► │ Google OAuth │
-│ (caja negra)    │                  └──────────────┘
-└────────┬────────┘
-         │ enviar email
-         ▼
-┌─────────────────┐
-│ SMTP Provider   │
-└─────────────────┘
+```text
+Usuario Final ──usa [HTTPS]──► Identity Web
+Identity Web ──solicita autenticación [HTTPS]──► Identity API
+Identity API ──lee y escribe usuarios [SQL]──► identity-db
+Identity API ──envía correo [SMTP]──► SMTP Provider
+Identity API ──delega acceso social [OIDC/HTTPS]──► Google OAuth
 ```
 
-**Notas:**
+Google OAuth también es externo. Hay **3 contenedores internos**, **2 sistemas externos** y **1 boundary**. El diagrama C2 debe mostrar estos dos sistemas externos fuera de la boundary.
 
-- Cubre los elementos obligatorios de §4 C1.
-- 4 elementos, muy por debajo del límite recomendado de 10.
-- Todas las flechas con propósito; OAuth especificado como protocolo.
+### Ejemplo C3 — Identity API (Component)
 
----
+La autenticación es crítica para el negocio, por lo que justifica C3. Todos los componentes amarillos pertenecen solo a Identity API. La base de datos y Google OAuth se muestran como referencias externas al container.
 
-### Ejemplo C2 — Container Diagram (Identity System)
-
-**Elementos (6):**
-
-- 1 Boundary: Identity System (scope)
-- 3 App containers: Identity API (.NET 8), Admin Web (Angular 17), Notification Worker (.NET 8)
-- 2 Store containers: identity-db (PostgreSQL), session-cache (Redis)
-- 1 External System: SMTP Provider
-
-**Layout sugerido:**
-
-```
-┌─ Identity System ─────────────────────────────────────────────────┐
-│                                                                    │
-│  ┌──────────────┐    HTTPS    ┌──────────────┐    SQL    ┌──────┐ │
-│  │ Admin Web    │ ──────────► │ Identity API │ ────────► │ id-db│ │
-│  └──────────────┘             └──────┬───────┘           └──────┘ │
-│                                       │                            │
-│                                       └──Redis──► ┌──────────┐    │
-│                                                   │session-c │    │
-│                                                   └──────────┘    │
-│                                                                    │
-│  ┌──────────────────┐                                              │
-│  │ Notification     │ ────SMTP──► [SMTP Provider]                  │
-│  │ Worker           │                                              │
-│  └──────────────────┘                                              │
-└────────────────────────────────────────────────────────────────────┘
+```text
+Identity Web ──solicita inicio de sesión──► Auth Controller
+Auth Controller ──valida entrada──► Credential Validator
+Auth Controller ──inicia autenticación──► Auth Service
+Auth Service ──consulta identidad──► User Repository ──lee usuario [SQL]──► identity-db
+Auth Service ──mapea respuesta──► User Mapper
+Auth Service ──delega acceso social [OIDC/HTTPS]──► Google OAuth
 ```
 
-**Notas:**
+El `User Repository` recibe una llamada explícita de `Auth Service`; no queda aislado. `User Mapper` transforma la respuesta y no sustituye el acceso a datos. Cada relación indica propósito y dirección.
 
-- 6 containers internos + 1 external = 7 elementos, bajo el límite recomendado de 20.
-- Cumple §4 C2: App en morado, Store en coral, External en gris.
-- No muestra componentes (irían en C3).
-- Protocolos explícitos en cada flecha (obligatorio en C2).
+### Ejemplo Deployment — Identity System (Production, ficticio)
 
----
+```text
+Región AWS de ejemplo
+├─ Zona A / Zona B: Application Load Balancer
+├─ ECS Service: Identity Web (Angular), tareas Fargate x2
+├─ ECS Service: Identity API (ASP.NET Core 10), tareas Fargate x2
+└─ identity-db (PostgreSQL; alojamiento por confirmar en un caso real)
 
-### Ejemplo C3 — Component Diagram (Identity API)
-
-**Elementos (6):**
-
-- 1 Boundary: Identity API (scope)
-- 5 Components: AuthController, CredentialValidator, AuthService, UserMapper, UserRepository
-- 1 Store: identity-db (referencia al container padre)
-
-**Layout sugerido:**
-
-```
-┌─ Identity API ──────────────────────────────────────────────┐
-│                                                              │
-│  ┌────────────────┐    validate    ┌─────────────────────┐ │
-│  │ AuthController │ ─────────────► │ CredentialValidator │ │
-│  └────────┬───────┘               └─────────────────────┘ │
-│           │                                                  │
-│           │ process                                          │
-│           ▼                                                  │
-│  ┌────────────────┐                                          │
-│  │ AuthService    │ ──┐                                      │
-│  └────────────────┘   │ map                                  │
-│                        ▼                                      │
-│               ┌────────────────┐                             │
-│               │ UserMapper     │                             │
-│               └────────────────┘                             │
-│                                                              │
-│           ┌────────────────┐    SQL    ┌─────────────┐     │
-│           │ UserRepository │ ────────► │ identity-db │     │
-│           └────────────────┘           └─────────────┘     │
-└──────────────────────────────────────────────────────────────┘
+Fuera de la región representada: Google OAuth y SMTP Provider [External System]
 ```
 
-**Notas:**
+| Origen | Destino | Propósito y conexión |
+| --- | --- | --- |
+| Usuario Final | Application Load Balancer | Usa interfaz, HTTPS:443 |
+| Application Load Balancer | Identity Web | Entrega interfaz, HTTPS:443 |
+| Identity Web | Identity API | Solicita autenticación, HTTPS:443 |
+| Identity API | identity-db | Lee y escribe usuarios, TCP:5432 |
+| Identity API | Google OAuth | Delega acceso social, OIDC/HTTPS:443 |
+| Identity API | SMTP Provider | Envía correo, SMTP/TLS:587 |
 
-- Cumple §4 C3: componentes de UN SOLO container (Identity API).
-- Una responsabilidad por componente (Controller/Validator/Service/Mapper/Repository).
-- Flechas muestran dirección del dato.
-- identity-db aparece como referencia al Store padre (no como componente).
-
----
-
-### Ejemplo Deployment — Identity System en Production (AWS)
-
-**Elementos:**
-
-- 1 Boundary: AWS us-east-1 (Production)
-  - 1 Boundary: Production EKS
-    - 1 Load Balancer: Public ALB
-    - 1 Store: identity-db (RDS PostgreSQL)
-    - 1 Store: session-cache (ElastiCache Redis)
-    - 1 App: identity-api (x3 réplicas)
-
-**Layout sugerido:**
-
-```
-┌─ AWS us-east-1 (Production) ──────────────────────────────────────┐
-│                                                                   │
-│  ┌─ Production EKS ──────────────────────────────────────────┐   │
-│  │                                                            │   │
-│  │       ┌──────────────┐                                     │   │
-│  │       │ Public ALB   │                                     │   │
-│  │       └──────┬───────┘                                     │   │
-│  │              │ HTTPS:443                                   │   │
-│  │              ▼                                             │   │
-│  │       ┌──────────────────┐                                │   │
-│  │       │ identity-api x3  │                                │   │
-│  │       └────┬─────────┬───┘                                │   │
-│  │            │         │                                    │   │
-│  │   SQL:5432 │         │ Redis:6379                         │   │
-│  │            ▼         ▼                                    │   │
-│  │   ┌─────────────┐ ┌──────────────┐                       │   │
-│  │   │ identity-db │ │ session-cache│                       │   │
-│  │   │ (RDS)       │ │ (ElastiCache)│                       │   │
-│  │   └─────────────┘ └──────────────┘                       │   │
-│  │                                                            │   │
-│  └────────────────────────────────────────────────────────────┘   │
-└───────────────────────────────────────────────────────────────────┘
-```
-
-**Notas:**
-
-- Muestra infraestructura real (no conceptual): AWS, EKS, RDS, ElastiCache, ALB.
-- Réplicas indicadas (x3 para identity-api).
-- Protocolos y puertos en cada flecha (HTTPS:443, SQL:5432, Redis:6379).
-- Estereotipos opcionales como `<<RDS>>`, `<<ALB>>` pueden añadirse al nombre del componente.
+El balanceador, la base de datos y los sistemas externos están **fuera de los ECS Services**. Antes de documentar un sistema real, verificar alojamiento de PostgreSQL, redes, zonas, réplicas y puertos efectivos.
 
 ---
 

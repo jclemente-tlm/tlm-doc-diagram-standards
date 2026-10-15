@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" version="24.7.17" type="device">
+  <diagram id="context-seguimiento-carga-refrigerada" name="Seguimiento de carga refrigerada — C1 Contexto">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="2200" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Seguimiento de carga refrigerada — C1 Contexto" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#333333;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="22" width="2200" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="notice" value="PROYECTO FICTICIO — flujos e integración ilustrativos; plataformas compartidas existentes" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontColor=#A61C00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="72" width="2200" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="scope" value="Sistema bajo estudio: Sistema de Seguimiento de Carga Refrigerada  |  De registro y mediciones a entrega con historial" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="50" y="110" width="2200" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" value="PROYECTO FICTICIO — flujos e integración ilustrativos; plataformas compartidas existentes" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=14;fontColor=#A61C00;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1200" width="2200" height="30" as="geometry" />
+        </mxCell>
+        <object placeholders="1" c4Name="Operador de carga refrigerada" c4Type="Person" c4Description="Registra condiciones y entrega la carga con su historial" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font&gt;%c4Description%&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;" id="operator">
+          <mxCell parent="1" style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;textOpacity=80;" vertex="1">
+            <mxGeometry x="100" y="200" width="200" height="140" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Supervisor de operaciones" c4Type="Person" c4Description="Revisa y resuelve desviaciones de temperatura" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font&gt;%c4Description%&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;" id="supervisor">
+          <mxCell parent="1" style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;textOpacity=80;" vertex="1">
+            <mxGeometry x="100" y="460" width="200" height="140" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Cliente de carga" c4Type="External Person" c4Description="Consulta estado e historial de la carga" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font&gt;%c4Description%&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;" id="client">
+          <mxCell parent="1" style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#DFDFDF;strokeColor=#808080;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;textOpacity=80;" vertex="1">
+            <mxGeometry x="100" y="720" width="200" height="140" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Sistema de Seguimiento de Carga Refrigerada" c4Type="System" c4Description="Supervisa mediciones, alerta desviaciones y conserva historial" label="&lt;font style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 13px&quot;&gt;&lt;font&gt;%c4Description%&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;" id="system">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2CEFF;align=center;arcSize=10;strokeColor=#6c8ebf;metaEdit=1;resizable=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];strokeWidth=1;glass=0;spacingTop=10;spacingBottom=10;spacingRight=10;spacingLeft=10;textOpacity=80;" vertex="1">
+            <mxGeometry x="580" y="460" width="280" height="140" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Servicio de Mediciones" c4Type="External System" c4Description="Envía mediciones de temperatura asociadas a la carga" label="&lt;font style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 13px&quot;&gt;&lt;font&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="sensors">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#DFDFDF;align=center;arcSize=10;strokeColor=#808080;metaEdit=1;resizable=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];textOpacity=80;strokeWidth=1;glass=0;shadow=0;spacingTop=10;spacingLeft=10;spacingBottom=10;spacingRight=10;" vertex="1">
+            <mxGeometry x="1110" y="250" width="280" height="140" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Proveedor de Notificaciones" c4Type="External System" c4Description="Entrega avisos de desviación a sus destinatarios" label="&lt;font style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 13px&quot;&gt;&lt;font&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="notify">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#DFDFDF;align=center;arcSize=10;strokeColor=#808080;metaEdit=1;resizable=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];textOpacity=80;strokeWidth=1;glass=0;shadow=0;spacingTop=10;spacingLeft=10;spacingBottom=10;spacingRight=10;" vertex="1">
+            <mxGeometry x="1110" y="720" width="280" height="140" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Description="Registra carga y entrega" label="&lt;div style=&quot;padding: 5px; background-color: rgba(255, 255, 255, 0.6); border-radius: 5px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;" id="r1">
+          <mxCell edge="1" parent="1" style="endArrow=blockThin;html=1;fontSize=13;fontColor=#404040;strokeWidth=2;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;labelBorderColor=none;labelBackgroundColor=none;" source="operator" target="system">
+            <mxGeometry relative="1" width="240" x="-0.0167" as="geometry">
+              <mxPoint as="offset" />
+              <mxPoint as="sourcePoint" />
+              <mxPoint x="240" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Description="Atiende desviaciones" label="&lt;div style=&quot;padding: 5px; background-color: rgba(255, 255, 255, 0.6); border-radius: 5px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;" id="r2">
+          <mxCell edge="1" parent="1" style="endArrow=blockThin;html=1;fontSize=13;fontColor=#404040;strokeWidth=2;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;labelBorderColor=none;labelBackgroundColor=none;" source="supervisor" target="system">
+            <mxGeometry relative="1" width="240" x="-0.0167" as="geometry">
+              <mxPoint as="offset" />
+              <mxPoint as="sourcePoint" />
+              <mxPoint x="240" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Description="Consulta historial" label="&lt;div style=&quot;padding: 5px; background-color: rgba(255, 255, 255, 0.6); border-radius: 5px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;" id="r3">
+          <mxCell edge="1" parent="1" style="endArrow=blockThin;html=1;fontSize=13;fontColor=#404040;strokeWidth=2;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;labelBorderColor=none;labelBackgroundColor=none;" source="client" target="system">
+            <mxGeometry relative="1" width="240" x="-0.0167" as="geometry">
+              <mxPoint as="offset" />
+              <mxPoint as="sourcePoint" />
+              <mxPoint x="240" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Description="Envía mediciones" label="&lt;div style=&quot;padding: 5px; background-color: rgba(255, 255, 255, 0.6); border-radius: 5px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;" id="r4">
+          <mxCell edge="1" parent="1" style="endArrow=blockThin;html=1;fontSize=13;fontColor=#404040;strokeWidth=2;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;labelBorderColor=none;labelBackgroundColor=none;" source="sensors" target="system">
+            <mxGeometry relative="1" width="240" x="-0.0167" as="geometry">
+              <mxPoint as="offset" />
+              <mxPoint as="sourcePoint" />
+              <mxPoint x="240" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Description="Solicita aviso" label="&lt;div style=&quot;padding: 5px; background-color: rgba(255, 255, 255, 0.6); border-radius: 5px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;" id="r5">
+          <mxCell edge="1" parent="1" style="endArrow=blockThin;html=1;fontSize=13;fontColor=#404040;strokeWidth=2;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;labelBorderColor=none;labelBackgroundColor=none;" source="system" target="notify">
+            <mxGeometry relative="1" width="240" x="-0.0167" as="geometry">
+              <mxPoint as="offset" />
+              <mxPoint as="sourcePoint" />
+              <mxPoint x="240" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

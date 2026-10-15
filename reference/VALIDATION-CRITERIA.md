@@ -23,7 +23,7 @@ Checklists esenciales para validación rápida durante creación, PR review y au
 - [ ] Todos los stores: DBs, message buses, queues, storage
 - [ ] Separación visual: Apps (morado), Stores (coral), Externos (gris)
 - [ ] Shapes correctos: Cilindro=DB, Folder=storage, gateway identificado por nombre
-- [ ] Protocolos en todas las conexiones (HTTPS, Kafka, SQL)
+- [ ] Protocolos en todas las conexiones (HTTPS, SQL; Kafka solo en propuestas en evaluación)
 - [ ] Líneas: Sólida (sync), Dashed (async), Dotted (batch)
 - [ ] Máximo 20 elementos
 
@@ -39,7 +39,7 @@ Checklists esenciales para validación rápida durante creación, PR review y au
 
 ### Deployment Diagram
 
-- [ ] Infraestructura: VPCs, subnets, clusters
+- [ ] Infraestructura real del sistema: VPCs, subnets y ECS Services/Tasks o EC2 cuando apliquen; no asumir Kubernetes/EKS.
 - [ ] Containers mapeados desde C2
 - [ ] Networking: Load balancers, DNS
 - [ ] Security: Security groups, IAM
@@ -91,7 +91,7 @@ Checklists esenciales para validación rápida durante creación, PR review y au
 - [ ] Inglés para elementos técnicos
 - [ ] Singular: "User Service" no "Users Service"
 - [ ] Sin abreviaciones: No "svc", "proc", "mgr"
-- [ ] Formato: `dominio-db`, `tipo.dominio.entidad.accion` (Kafka)
+- [ ] Formato: `dominio-db`; para propuestas Kafka, `tipo.dominio.entidad.accion`
 - [ ] **Pestañas exportables**: nombres siguen `[Nombre] - [Tipo]` (ver [§16](../STANDARDS.md#-16-convención-de-pestañas))
 
 ---
@@ -109,6 +109,7 @@ Copiar en el PR:
 - [ ] Nomenclatura consistente
 - [ ] Elementos en orden nombre → categoría/tecnología → descripción, con forma y color según la librería
 - [ ] Metadata actualizada (versión, fecha, owner)
+- [ ] Tecnologías y estado de adopción comprobados en [TECH-STACK.md](../TECH-STACK.md)
 - [ ] Todas las flechas etiquetadas
 - [ ] Límites de elementos respetados (C1≤10, C2≤20, C3≤12)
 - [ ] Si se modificó un `.drawio`, ¿se generó/actualizó el `.png` en este PR (manualmente hasta disponer del workflow)?
